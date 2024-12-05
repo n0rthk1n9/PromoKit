@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct PromoKitApp: App {
+    @State var promoCodesViewModel = PromoCodesViewModel()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environment(promoCodesViewModel)
         }
     }
 }

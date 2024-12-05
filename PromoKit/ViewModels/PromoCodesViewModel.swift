@@ -13,14 +13,12 @@ class PromoCodesViewModel {
 
     func readPromoCodes(from fileURL: URL) {
         do {
-            // Start accessing the security-scoped resource
             guard fileURL.startAccessingSecurityScopedResource() else {
                 print("Unable to access the file at \(fileURL.path).")
                 return
             }
-            defer { fileURL.stopAccessingSecurityScopedResource() }  // Ensure it is released
+            defer { fileURL.stopAccessingSecurityScopedResource() }
 
-            // Read the file contents
             let fileContents = try String(contentsOf: fileURL, encoding: .utf8)
             let lines = fileContents.split(separator: "\n")
 

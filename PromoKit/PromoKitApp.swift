@@ -10,12 +10,19 @@ import SwiftUI
 @main
 struct PromoKitApp: App {
     @State var promoCodesViewModel = PromoCodesViewModel()
-    
+
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environment(promoCodesViewModel)
-                .fontDesign(.rounded)
+            TabView {
+                Tab("Apps", systemImage: "app.fill") {
+                    AppsView()
+                }
+                Tab("Settings", systemImage: "gear") {
+                    SettingsView()
+                }
+            }
+            .environment(promoCodesViewModel)
+            .fontDesign(.rounded)
         }
     }
 }

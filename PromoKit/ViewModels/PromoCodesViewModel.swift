@@ -1,5 +1,5 @@
 //
-//  PromoCodesViewModel.swift
+//  PromoKitViewModel.swift
 //  PromoKit
 //
 //  Created by Jan Armbrust on 05.12.2024.

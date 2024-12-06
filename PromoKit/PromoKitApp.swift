@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PromoKitApp: App {
@@ -15,12 +16,13 @@ struct PromoKitApp: App {
         WindowGroup {
             TabView {
                 Tab("Apps", systemImage: "app.fill") {
-                    AppsView()
+                    PromoAppsView()
                 }
                 Tab("Settings", systemImage: "gear") {
                     SettingsView()
                 }
             }
+            .modelContainer(for: PromoApp.self)
             .environment(promoCodesViewModel)
             .fontDesign(.rounded)
         }

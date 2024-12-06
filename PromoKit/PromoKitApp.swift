@@ -15,6 +15,7 @@ struct PromoKitApp: App {
         WindowGroup {
             MainView()
                 .environment(promoCodesViewModel)
+                .fontDesign(.rounded)
         }
     }
 }

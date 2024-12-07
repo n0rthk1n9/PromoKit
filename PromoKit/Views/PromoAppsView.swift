@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct PromoAppsView: View {
+    @Environment(\.modelContext) var context
     @State private var showAddPromoAppSheet = false
     @Query private var promoApps: [PromoApp]
 
@@ -16,8 +17,14 @@ struct PromoAppsView: View {
         NavigationStack {
             List {
                 ForEach(promoApps) { promoApp in
-                    Text(promoApp.name)
+                    VStack {
+                        Text(promoApp.name)
+                        ForEach(promoApp.promoCodes) { promoCode in
+                            Text("\(promoCode.code) belongs to \(promoApp.name)")
+                        }
+                    }
                 }
+                .onDelete(perform: deletePromoApp)
             }
             .navigationTitle("Promo Kit")
             .toolbar {
@@ -31,6 +38,15 @@ struct PromoAppsView: View {
             }
             .sheet(isPresented: $showAddPromoAppSheet) {
                 AddPromoAppView()
+            }
+        }
+    }
+
+    func deletePromoApp(at offsets: IndexSet) {
+        for index in offsets {
+            let promoAppToDelete = promoApps[index]
+            withAnimation {
+                context.delete(promoAppToDelete)
             }
         }
     }

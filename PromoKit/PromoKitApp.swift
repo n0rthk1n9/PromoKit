@@ -10,8 +10,6 @@ import SwiftData
 
 @main
 struct PromoKitApp: App {
-    @State var promoCodesViewModel = PromoCodesViewModel()
-
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -23,7 +21,6 @@ struct PromoKitApp: App {
                 }
             }
             .modelContainer(for: PromoApp.self)
-            .environment(promoCodesViewModel)
             .fontDesign(.rounded)
         }
     }

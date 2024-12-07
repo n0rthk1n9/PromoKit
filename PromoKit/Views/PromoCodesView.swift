@@ -5,19 +5,20 @@
 //  Created by Jan Armbrust on 05.12.2024.
 //
 
+import SwiftData
 import SwiftUI
 
 struct PromoCodesView: View {
-    @Environment(PromoCodesViewModel.self) var viewModel
+    @Environment(\.modelContext) var context
+    var promoApp: PromoApp
 
     @State private var isFileImporterPresented = false
 
     var body: some View {
         VStack {
-            List(viewModel.promoCodes) { promoCode in
-                Text(promoCode.code)
+            List(promoApp.promoCodes) { promoCode in
+                Text("\(promoCode.code) belongs to \(promoApp.name)")
             }
-
             Button("Import Promo Codes") {
                 isFileImporterPresented = true
             }
@@ -29,7 +30,7 @@ struct PromoCodesView: View {
                 switch result {
                 case .success(let urls):
                     if let selectedFile = urls.first {
-                        viewModel.readPromoCodes(from: selectedFile)
+                        readPromoCodes(from: selectedFile)
                     }
                 case .failure(let error):
                     print("File selection error: \(error.localizedDescription)")
@@ -39,9 +40,35 @@ struct PromoCodesView: View {
         .padding()
         .navigationTitle("Promo Codes")
     }
+
+    func readPromoCodes(from fileURL: URL) {
+        do {
+            guard fileURL.startAccessingSecurityScopedResource() else {
+                print("Unable to access the file at \(fileURL.path).")
+                return
+            }
+            defer { fileURL.stopAccessingSecurityScopedResource() }
+
+            let fileContents = try String(contentsOf: fileURL, encoding: .utf8)
+            let lines = fileContents.split(separator: "\n")
+
+            let newPromoCodes =
+                lines
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+                .map { PromoCode(code: $0, promoApp: promoApp) }
+
+            for promoCode in newPromoCodes {
+                // add promo code to SwiftData
+                context.insert(promoCode)
+                promoApp.promoCodes.append(promoCode)
+            }
+        } catch {
+            print("Error reading file: \(error)")
+        }
+    }
 }
 
 #Preview {
-    PromoCodesView()
-        .environment(PromoCodesViewModel())
+    PromoCodesView(promoApp: PromoApp())
 }

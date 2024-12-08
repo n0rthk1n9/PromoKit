@@ -9,12 +9,21 @@ import Foundation
 
 struct SampleData {
     static var promoApps: [PromoApp] = [
-        promoApp1
+        promoApp1,
+        promoApp2
     ]
     
     static var promoApp1 = PromoApp(
         name: "App Exhibit",
         version: "1.3",
+        appId: "6503256642",
+        promoCodes: []
+    )
+    
+    static var promoApp2 = PromoApp(
+        name: "Cosmo Pic",
+        version: "1.0",
+        appId: "129381232",
         promoCodes: []
     )
     

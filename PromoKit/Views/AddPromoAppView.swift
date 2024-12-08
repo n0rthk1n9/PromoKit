@@ -17,8 +17,11 @@ struct AddPromoAppView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("App Name", text: $promoApp.name)
-                TextField("App Version", text: $promoApp.version)
+                Section("Details") {
+                    TextField("App Name", text: $promoApp.name)
+                    TextField("App Version", text: $promoApp.version)
+                    TextField("App ID", text: $promoApp.appId)
+                }
                 PromoCodesView(promoApp: promoApp)
             }
             .navigationTitle("Add App")

@@ -10,6 +10,18 @@ import SwiftData
 
 @main
 struct PromoKitApp: App {
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            PromoApp.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        do {
+          return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+          fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
+    
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -20,7 +32,7 @@ struct PromoKitApp: App {
                     SettingsView()
                 }
             }
-            .modelContainer(for: PromoApp.self)
+            .modelContainer(sharedModelContainer)
             .fontDesign(.rounded)
         }
     }

@@ -52,7 +52,6 @@ struct PromoAppsView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sampleData) {
     PromoAppsView()
-        .modelContainer(for: PromoApp.self)
 }

@@ -69,6 +69,6 @@ struct PromoCodesView: View {
     }
 }
 
-#Preview {
-    PromoCodesView(promoApp: PromoApp())
+#Preview(traits: .sampleData) {
+    PromoCodesView(promoApp: SampleData.promoApp1)
 }

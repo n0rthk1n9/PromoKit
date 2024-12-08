@@ -55,7 +55,6 @@ struct PromoCodeView: View {
 
     func generateLink(for appId: String, with code: String) -> String {
         self.appStorePromoCodeLink = "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
-        print(self.appStorePromoCodeLink)
         
         return "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
     }

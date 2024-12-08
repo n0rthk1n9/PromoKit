@@ -44,6 +44,10 @@ struct PromoCodeView: View {
     }
 }
 
+
+// Hack to making archive build work
+#if DEBUG
 #Preview(traits: .sampleData) {
     PromoCodeView(promoCode: SampleData.promoCode1PromoApp1, showCopyToClipboardNotification: {})
 }
+#endif

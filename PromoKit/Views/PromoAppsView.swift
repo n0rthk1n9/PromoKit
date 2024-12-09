@@ -72,10 +72,14 @@ struct PromoAppsView: View {
                     }
                 } else {
                     ContentUnavailableView {
+                        Label("Add your app", systemImage: "plus")
+                    } description: {
+                        Text("When you add an app, you can import promo codes from the file App Store Connect generates for you")
+                    } actions: {
                         Button {
                             generateSampleData()
                         } label: {
-                            Text("Add demo app")
+                            Text("Add a demo app to test the features")
                         }
                     }
                 }

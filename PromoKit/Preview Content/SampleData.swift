@@ -35,7 +35,7 @@ struct SampleData {
     
     static var promoCode1PromoApp1 = PromoCode(
         code: "AF4HYL4EETAP",
-        dateAdded: .now,
+        dateAdded: Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date(),
         used: false,
         promoApp: promoApp1
     )
@@ -43,14 +43,14 @@ struct SampleData {
     static var promoCode2PromoApp1 = PromoCode(
         code: "NTYEJLYFHYJT",
         dateAdded: .now,
-        used: true,
+        used: false,
         promoApp: promoApp1
     )
     
     static var promoCode3PromoApp1 = PromoCode(
         code: "7HMHWLA6A9JM",
         dateAdded: .now,
-        used: false,
+        used: true,
         promoApp: promoApp1
     )
 }

@@ -181,8 +181,12 @@ struct PromoAppsView: View {
 
         // Create promo codes for promoApp1
         let promoCode1 = PromoCode(code: "AF4HYL4EETAP", dateAdded: .now, used: false)
-        let promoCode2 = PromoCode(code: "NTYEJLYFHYJT", dateAdded: .now, used: true)
-        let promoCode3 = PromoCode(code: "7HMHWLA6A9JM", dateAdded: .now, used: false)
+        let promoCode2 = PromoCode(
+            code: "NTYEJLYFHYJT",
+            dateAdded: Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date(),
+            used: false
+        )
+        let promoCode3 = PromoCode(code: "7HMHWLA6A9JM", dateAdded: .now, used: true)
 
         // Assign the promo codes to promoApp1
         promoCode1.promoApp = promoApp1

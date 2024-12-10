@@ -11,7 +11,7 @@ struct PromoCodeView: View {
     var promoCode: PromoCode
     let appId: String
     @Binding var appStorePromoCodeLink: String
-    let copyMode: PromoAppsView.CopyMode
+    let copyMode: CopyMode
     let showCopyToClipboardNotification: () -> Void
 
     var body: some View {
@@ -24,6 +24,12 @@ struct PromoCodeView: View {
                     Text("✅")
                         .font(.title3)
                         .frame(minHeight: 24)
+                        .transition(.scale.combined(with: .opacity))
+                } else if promoCode.isInvalid {
+                    Text("🚫")
+                        .font(.title3)
+                        .frame(minHeight: 24)
+                        .transition(.scale.combined(with: .opacity))
                 } else {
                     Button {
                         copyToClipboard()
@@ -36,6 +42,8 @@ struct PromoCodeView: View {
                     .disabled(promoCode.isInvalid)
                 }
             }
+            .animation(.easeInOut(duration: 0.3), value: promoCode.isUsed)
+            .animation(.easeInOut(duration: 0.3), value: promoCode.isInvalid)
             Text(promoCode.code)
                 .font(.footnote)
         }

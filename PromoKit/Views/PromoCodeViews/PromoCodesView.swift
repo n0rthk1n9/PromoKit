@@ -38,7 +38,6 @@ struct PromoCodesView: View {
             }
         }
         .padding()
-        .navigationTitle("Promo Codes")
     }
 
     func readPromoCodes(from fileURL: URL) {

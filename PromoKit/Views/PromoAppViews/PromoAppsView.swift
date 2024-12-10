@@ -18,18 +18,6 @@ struct PromoAppsView: View {
 
     @Query(sort: \PromoApp.name) private var promoApps: [PromoApp]
 
-    enum CopyMode: String, CaseIterable, Identifiable {
-        case code = "Code"
-        case link = "Link"
-
-        var id: String { self.rawValue }
-    }
-
-    let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
-    ]
-
     var shadowColor: Color {
         colorScheme == .dark ? Color.black.opacity(0.6) : Color.gray.opacity(0.3)
     }
@@ -47,17 +35,12 @@ struct PromoAppsView: View {
                 if !promoApps.isEmpty {
                     List {
                         ForEach(promoApps) { promoApp in
-                            VStack(alignment: .leading) {
-                                Text(promoApp.name)
-                                    .font(.largeTitle)
-                                    .bold()
-                                    .fontDesign(.rounded)
-                                Text("\(promoApp.daysRemaining) days remaining")
-                                            .font(.headline)
-                                            .foregroundStyle(promoApp.daysRemaining > 0 ? .green : .red)
-                                promoCodesGrid(for: promoApp)
-                            }
-                            .padding(.vertical)
+                            PromoAppRowView(
+                                promoApp: promoApp,
+                                appStorePromoCodeLink: $appStorePromoCodeLink,
+                                copyMode: copyMode,
+                                showCopiedToClipboardNotification: showCopiedToClipboardNotification
+                            )
                         }
                         .onDelete(perform: deletePromoApp)
                         .listRowBackground(
@@ -77,7 +60,9 @@ struct PromoAppsView: View {
                     ContentUnavailableView {
                         Label("Add your app", systemImage: "plus")
                     } description: {
-                        Text("When you add an app, you can import promo codes from the file App Store Connect generates for you")
+                        Text(
+                            "When you add an app, you can import promo codes from the file App Store Connect generates for you"
+                        )
                     } actions: {
                         Button {
                             generateSampleData()
@@ -129,21 +114,6 @@ struct PromoAppsView: View {
                     .foregroundColor(Color.primary)
                     .transition(.opacity)
                     .frame(maxHeight: .infinity, alignment: .top)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func promoCodesGrid(for promoApp: PromoApp) -> some View {
-        LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(promoApp.promoCodes) { promoCode in
-                PromoCodeView(
-                    promoCode: promoCode,
-                    appId: promoApp.appId,
-                    appStorePromoCodeLink: $appStorePromoCodeLink,
-                    copyMode: copyMode,
-                    showCopyToClipboardNotification: showCopiedToClipboardNotification
-                )
             }
         }
     }

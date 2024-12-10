@@ -52,6 +52,9 @@ struct PromoAppsView: View {
                                     .font(.largeTitle)
                                     .bold()
                                     .fontDesign(.rounded)
+                                Text("\(promoApp.daysRemaining) days remaining")
+                                            .font(.headline)
+                                            .foregroundStyle(promoApp.daysRemaining > 0 ? .green : .red)
                                 promoCodesGrid(for: promoApp)
                             }
                             .padding(.vertical)

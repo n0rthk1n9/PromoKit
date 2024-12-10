@@ -49,6 +49,10 @@ struct PromoCodesView: View {
             }
             defer { fileURL.stopAccessingSecurityScopedResource() }
 
+            // Get the file creation date
+            let fileAttributes = try FileManager.default.attributesOfItem(atPath: fileURL.path)
+            let creationDate = fileAttributes[.creationDate] as? Date ?? Date()
+
             let fileContents = try String(contentsOf: fileURL, encoding: .utf8)
             let lines = fileContents.split(separator: "\n")
 
@@ -56,7 +60,7 @@ struct PromoCodesView: View {
                 lines
                 .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
                 .filter { !$0.isEmpty }
-                .map { PromoCode(code: $0, promoApp: promoApp) }
+                .map { PromoCode(code: $0, dateAdded: creationDate, promoApp: promoApp) }
 
             for promoCode in newPromoCodes {
                 // add promo code to SwiftData

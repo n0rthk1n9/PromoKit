@@ -20,15 +20,21 @@ struct PromoCodeView: View {
                 Image(systemName: "ticket")
                     .font(.title3)
                 Spacer()
-                Button {
-                    copyToClipboard()
-                } label: {
-                    Text("Copy")
+                if promoCode.isUsed {
+                    Text("✅")
+                        .font(.title3)
+                        .frame(minHeight: 24)
+                } else {
+                    Button {
+                        copyToClipboard()
+                    } label: {
+                        Text("Copy")
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.mini)
+                    .tint(copyMode == .link ? .mint : .blue)
+                    .disabled(promoCode.isInvalid)
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.mini)
-                .tint(copyMode == .link ? .mint : .blue)
-                .disabled(promoCode.isInvalid)
             }
             Text(promoCode.code)
                 .font(.footnote)
@@ -50,6 +56,7 @@ struct PromoCodeView: View {
             appStorePromoCodeLink = ""
             contentToCopy = promoCode.code
         }
+        promoCode.isUsed = true
         showCopyToClipboardNotification()
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         UIPasteboard.general.string = contentToCopy
@@ -57,7 +64,7 @@ struct PromoCodeView: View {
 
     func generateLink(for appId: String, with code: String) -> String {
         self.appStorePromoCodeLink = "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
-        
+
         return "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
     }
 }

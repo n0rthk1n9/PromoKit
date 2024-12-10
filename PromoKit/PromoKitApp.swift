@@ -5,8 +5,8 @@
 //  Created by Jan Armbrust on 05.12.2024.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct PromoKitApp: App {
@@ -16,24 +16,17 @@ struct PromoKitApp: App {
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
-          return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
-          fatalError("Could not create ModelContainer: \(error)")
+            fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-    
+
     var body: some Scene {
         WindowGroup {
-            TabView {
-                Tab("Apps", systemImage: "app.fill") {
-                    PromoAppsView()
-                }
-                Tab("Settings", systemImage: "gear") {
-                    SettingsView()
-                }
-            }
-            .modelContainer(sharedModelContainer)
-            .fontDesign(.rounded)
+            MainView()
+                .modelContainer(sharedModelContainer)
+                .fontDesign(.rounded)
         }
     }
 }

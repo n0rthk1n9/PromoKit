@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PromoAppRowHeaderView: View {
     var promoApp: PromoApp
-    
+
     var body: some View {
         Text(promoApp.name)
             .font(.largeTitle)
@@ -25,12 +25,26 @@ struct PromoAppRowHeaderView: View {
             promoApp.daysRemaining > 0 ? .identity : .move(edge: .top)
         )
         .animation(.easeIn(duration: 0.4), value: promoApp.daysRemaining)
+        ProgressView(value: progressValue)
+            .progressViewStyle(
+                LinearProgressViewStyle(
+                    progressValue: progressValue
+                )
+            )
+
+        Text("\(promoApp.validCodesRemaining) of \(promoApp.promoCodes.count) codes available")
+            .font(.subheadline)
+    }
+
+    private var progressValue: Double {
+        guard !promoApp.promoCodes.isEmpty else { return 0.0 }
+        return Double(promoApp.validCodesRemaining) / Double(promoApp.promoCodes.count)
     }
 }
 
 // Hack to making archive build work
 #if DEBUG
-#Preview(traits: .sampleData) {
-    PromoAppRowHeaderView(promoApp: SampleData.promoApp2)
-}
+    #Preview(traits: .sampleData) {
+        PromoAppRowHeaderView(promoApp: SampleData.promoApp2)
+    }
 #endif

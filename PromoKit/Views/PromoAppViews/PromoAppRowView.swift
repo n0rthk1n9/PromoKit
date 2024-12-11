@@ -13,7 +13,7 @@ struct PromoAppRowView: View {
     let showCopiedToClipboardNotification: (String) -> Void
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             PromoAppRowHeaderView(promoApp: promoApp)
             PromoCodesGridView(
                 promoApp: promoApp,

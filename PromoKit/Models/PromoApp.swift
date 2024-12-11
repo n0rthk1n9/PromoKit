@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class PromoApp {
+class PromoApp {
     var name: String
     var version: String
     var appId: String
@@ -24,6 +24,10 @@ final class PromoApp {
         self.appId = appId
         self.link = link
         self.promoCodes = promoCodes
+    }
+
+    var validCodesRemaining: Int {
+        promoCodes.filter { !$0.isUsed && !$0.isInvalid }.count
     }
 
     var daysRemaining: Int {

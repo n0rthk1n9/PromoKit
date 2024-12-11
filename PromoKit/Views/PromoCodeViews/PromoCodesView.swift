@@ -15,29 +15,35 @@ struct PromoCodesView: View {
     @State private var isFileImporterPresented = false
 
     var body: some View {
-        VStack {
+        if promoApp.promoCodes.isEmpty {
+            ContentUnavailableView(
+                "Import promo codes to show them here",
+                systemImage: "ticket",
+                description:
+                    Text("Generate promo codes in App Store Connect, save the generated file and import it here")
+            )
+        } else {
             List(promoApp.promoCodes) { promoCode in
                 Text("\(promoCode.code) belongs to \(promoApp.name)")
             }
-            Button("Import Promo Codes") {
-                isFileImporterPresented = true
-            }
-            .fileImporter(
-                isPresented: $isFileImporterPresented,
-                allowedContentTypes: [.plainText],
-                allowsMultipleSelection: false
-            ) { result in
-                switch result {
-                case .success(let urls):
-                    if let selectedFile = urls.first {
-                        readPromoCodes(from: selectedFile)
-                    }
-                case .failure(let error):
-                    print("File selection error: \(error.localizedDescription)")
+        }
+        Button("Import Promo Codes") {
+            isFileImporterPresented = true
+        }
+        .fileImporter(
+            isPresented: $isFileImporterPresented,
+            allowedContentTypes: [.plainText],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let selectedFile = urls.first {
+                    readPromoCodes(from: selectedFile)
                 }
+            case .failure(let error):
+                print("File selection error: \(error.localizedDescription)")
             }
         }
-        .padding()
     }
 
     func readPromoCodes(from fileURL: URL) {
@@ -74,7 +80,7 @@ struct PromoCodesView: View {
 
 // Hack to making archive build work
 #if DEBUG
-#Preview(traits: .sampleData) {
-    PromoCodesView(promoApp: SampleData.promoApp1)
-}
+    #Preview(traits: .sampleData) {
+        PromoCodesView(promoApp: SampleData.promoApp2)
+    }
 #endif

@@ -5,8 +5,8 @@
 //  Created by Jan Armbrust on 06.12.2024.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct AddPromoAppView: View {
     @Environment(\.dismiss) private var dismiss
@@ -20,7 +20,12 @@ struct AddPromoAppView: View {
                 Section("Details") {
                     TextField("App Name", text: $promoApp.name)
                     TextField("App Version", text: $promoApp.version)
-                    TextField("App ID", text: $promoApp.appId)
+                    TextField("Paste App Store link to extract App ID", text: $promoApp.link)
+                        .autocapitalization(.none)
+                        .keyboardType(.URL)
+                }
+                Section("App ID") {
+                    Text(promoApp.appId)
                 }
                 PromoCodesView(promoApp: promoApp)
             }
@@ -37,7 +42,39 @@ struct AddPromoAppView: View {
                     }
                 }
             }
+            .onChange(of: promoApp.link) { oldValue, newValue in
+                if newValue != oldValue {
+                    updateAppIdFromLink()
+                }
+            }
         }
+    }
+
+    private func updateAppIdFromLink() {
+        guard let url = URL(string: promoApp.link) else {
+            promoApp.appId = ""
+            return
+        }
+
+        let pathComponents = url.pathComponents
+        let regexPattern = #"id(\d+)"#
+
+        do {
+            let regex = try NSRegularExpression(pattern: regexPattern)
+            for component in pathComponents {
+                let range = NSRange(location: 0, length: component.utf16.count)
+                if let match = regex.firstMatch(in: component, options: [], range: range),
+                    let idRange = Range(match.range(at: 1), in: component)
+                {
+                    promoApp.appId = String(component[idRange])
+                    return
+                }
+            }
+        } catch {
+            print("Regex error: \(error)")
+        }
+
+        promoApp.appId = ""
     }
 }
 

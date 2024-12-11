@@ -13,7 +13,7 @@ final class PromoApp {
     var name: String
     var version: String
     var appId: String
-    var link: String?
+    var link: String
     // One PromoApp can have many PromoCode
     @Relationship(deleteRule: .cascade, inverse: \PromoCode.promoApp)
     var promoCodes: [PromoCode]
@@ -38,11 +38,14 @@ final class PromoApp {
             return expirationDate >= Date()
         }
 
-        guard let earliestExpirationDate = validPromoCodes
-            .compactMap({ Calendar.current.date(byAdding: .day, value: 28, to: $0.dateAdded) })
-            .min() else {
-                return 0
-            }
+        guard
+            let earliestExpirationDate =
+                validPromoCodes
+                .compactMap({ Calendar.current.date(byAdding: .day, value: 28, to: $0.dateAdded) })
+                .min()
+        else {
+            return 0
+        }
 
         let remaining = Calendar.current.dateComponents([.day], from: Date(), to: earliestExpirationDate).day ?? 0
         return max(remaining, 0)

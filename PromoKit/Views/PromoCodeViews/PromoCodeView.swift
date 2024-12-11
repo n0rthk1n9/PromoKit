@@ -13,6 +13,7 @@ struct PromoCodeView: View {
     let appId: String
     let copyMode: CopyMode
     let showCopyToClipboardNotification: (String, CopyMode) -> Void
+    @State private var showingUnuseAlert = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -53,7 +54,20 @@ struct PromoCodeView: View {
                 .stroke(.secondary, lineWidth: 1)
         }
         .opacity(promoCode.isInvalid ? 0.3 : 1.0)
-
+        .onLongPressGesture {
+            if promoCode.isUsed && promoCode.daysRemaining != 0 {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                showingUnuseAlert = true
+            }
+        }
+        .alert("Mark Code as Unused?", isPresented: $showingUnuseAlert) {
+            Button("Confirm", role: .destructive) {
+                promoCode.isUsed = false
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to mark this promo code as unused?")
+        }
     }
 
     func copyToClipboard() {
@@ -81,7 +95,7 @@ struct PromoCodeView: View {
             appStorePromoCodeLink: .constant(""),
             appId: SampleData.promoApp1.appId,
             copyMode: .code,
-            showCopyToClipboardNotification: {content, copyMode in}
+            showCopyToClipboardNotification: { content, copyMode in }
         )
     }
 #endif
@@ -94,7 +108,7 @@ struct PromoCodeView: View {
             appStorePromoCodeLink: .constant(""),
             appId: SampleData.promoApp1.appId,
             copyMode: .code,
-            showCopyToClipboardNotification: {content, copyMode in}
+            showCopyToClipboardNotification: { content, copyMode in }
         )
     }
 #endif

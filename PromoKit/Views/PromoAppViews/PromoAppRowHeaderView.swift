@@ -17,12 +17,16 @@ struct PromoAppRowHeaderView: View {
 
     var body: some View {
         HStack {
-            Text(promoApp.name)
-                .font(.largeTitle)
-                .bold()
-                .fontDesign(.rounded)
+            VStack(alignment: .leading) {
+                Text(promoApp.name)
+                    .font(.largeTitle)
+                    .bold()
+                    .fontDesign(.rounded)
+                Text("Version: \(promoApp.version)")
+                    .font(.caption)
+            }
             Spacer()
-            if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink) {
+            if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink), isLinkMode {
                 ShareLink(item: appStorePromoCodeLink) {
                     Image(systemName: "square.and.arrow.up")
                         .font(.body)

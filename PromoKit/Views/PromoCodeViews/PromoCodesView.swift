@@ -15,34 +15,40 @@ struct PromoCodesView: View {
     @State private var isFileImporterPresented = false
 
     var body: some View {
-        if promoApp.promoCodes.isEmpty {
-            ContentUnavailableView(
-                "Import promo codes to show them here",
-                systemImage: "ticket",
-                description:
-                    Text("Generate promo codes in App Store Connect, save the generated file and import it here")
-            )
-        } else {
-            List(promoApp.promoCodes) { promoCode in
-                Text("\(promoCode.code) belongs to \(promoApp.name)")
-            }
-        }
-        Button("Import Promo Codes") {
-            isFileImporterPresented = true
-        }
-        .fileImporter(
-            isPresented: $isFileImporterPresented,
-            allowedContentTypes: [.plainText],
-            allowsMultipleSelection: false
-        ) { result in
-            switch result {
-            case .success(let urls):
-                if let selectedFile = urls.first {
-                    readPromoCodes(from: selectedFile)
+        Section("Promo Codes") {
+            if promoApp.promoCodes.isEmpty {
+                ContentUnavailableView(
+                    "Import promo codes to show them here",
+                    systemImage: "ticket",
+                    description:
+                        Text("Generate promo codes in App Store Connect, save the generated file and import it here")
+                )
+            } else {
+                List(promoApp.promoCodes) { promoCode in
+                    Text("\(promoCode.code) belongs to \(promoApp.name)")
                 }
-            case .failure(let error):
-                print("File selection error: \(error.localizedDescription)")
             }
+            Button("Import Promo Codes") {
+                isFileImporterPresented = true
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.bottom)
+            .buttonStyle(.borderedProminent)
+            .fileImporter(
+                isPresented: $isFileImporterPresented,
+                allowedContentTypes: [.plainText],
+                allowsMultipleSelection: false
+            ) { result in
+                switch result {
+                case .success(let urls):
+                    if let selectedFile = urls.first {
+                        readPromoCodes(from: selectedFile)
+                    }
+                case .failure(let error):
+                    print("File selection error: \(error.localizedDescription)")
+                }
+            }
+            .listRowSeparator(.hidden)
         }
     }
 

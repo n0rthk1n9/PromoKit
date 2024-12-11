@@ -62,6 +62,7 @@ struct PromoAppRowHeaderView: View {
 
         Text("\(promoApp.validCodesRemaining) of \(promoApp.promoCodes.count) codes available")
             .font(.subheadline)
+            .opacity(progressValue == 0 ? 0.2 : 1.0)
     }
 
     private var progressValue: Double {

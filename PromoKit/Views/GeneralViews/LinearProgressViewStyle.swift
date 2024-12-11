@@ -43,14 +43,14 @@ struct LinearProgressViewStyle: ProgressViewStyle {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(progressColor)
                     .frame(width: proxy.size.width * CGFloat(configuration.fractionCompleted ?? 0.0), height: height)
-                    .animation(.easeInOut(duration: 0.6), value: configuration.fractionCompleted) // Smooth animation
+                    .animation(.easeInOut(duration: 0.6), value: configuration.fractionCompleted)
             }
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(strokeColor, lineWidth: strokeWidth)
             )
             .grayscale(progressValue == 0 ? 1.0 : 0.0)
-            .opacity(progressValue == 0 ? 0.5 : 1.0)
+            .opacity(progressValue == 0 ? 0.2 : 1.0)
         }
         .frame(height: height)
     }

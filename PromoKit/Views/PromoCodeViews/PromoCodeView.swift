@@ -10,7 +10,6 @@ import SwiftUI
 struct PromoCodeView: View {
     var promoCode: PromoCode
     @Binding var appStorePromoCodeLink: String
-    let appId: String
     let copyMode: CopyMode
     let showCopyToClipboardNotification: (String, CopyMode) -> Void
     @State private var showingUnuseAlert = false
@@ -93,7 +92,6 @@ struct PromoCodeView: View {
         PromoCodeView(
             promoCode: SampleData.promoCode1PromoApp1,
             appStorePromoCodeLink: .constant(""),
-            appId: SampleData.promoApp1.appId,
             copyMode: .code,
             showCopyToClipboardNotification: { content, copyMode in }
         )
@@ -106,7 +104,6 @@ struct PromoCodeView: View {
         PromoCodeView(
             promoCode: SampleData.promoCode2PromoApp1,
             appStorePromoCodeLink: .constant(""),
-            appId: SampleData.promoApp1.appId,
             copyMode: .code,
             showCopyToClipboardNotification: { content, copyMode in }
         )

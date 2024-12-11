@@ -24,7 +24,7 @@ struct PromoAppRowView: View {
                 }
             )
             PromoCodesGridView(
-                promoApp: promoApp,
+                promoAppId: promoApp.appId,
                 appStorePromoCodeLink: $appStorePromoCodeLink,
                 copyMode: copyMode,
                 showCopiedToClipboardNotification: showCopiedToClipboardNotification

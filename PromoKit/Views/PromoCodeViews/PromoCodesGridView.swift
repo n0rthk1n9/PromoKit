@@ -5,26 +5,40 @@
 //  Created by Jan Armbrust on 10.12.2024.
 //
 
+import SwiftData
 import SwiftUI
 
 struct PromoCodesGridView: View {
-    var promoApp: PromoApp
+    let promoAppId: String
     @Binding var appStorePromoCodeLink: String
     let copyMode: CopyMode
     let showCopiedToClipboardNotification: (String, CopyMode) -> Void
-    
+
+    @Query private var promoCodes: [PromoCode]
+
+    init(promoAppId: String, appStorePromoCodeLink: Binding<String>, copyMode: CopyMode, showCopiedToClipboardNotification: @escaping (String, CopyMode) -> Void) {
+        self.promoAppId = promoAppId
+        self._appStorePromoCodeLink = appStorePromoCodeLink
+        self.copyMode = copyMode
+        self.showCopiedToClipboardNotification = showCopiedToClipboardNotification
+        
+        let predicate = #Predicate<PromoCode> { promoCode in
+            promoCode.promoApp?.appId == promoAppId
+        }
+        _promoCodes = Query(filter: predicate)
+    }
+
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16),
     ]
-    
+
     var body: some View {
         LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(promoApp.promoCodes) { promoCode in
+            ForEach(promoCodes) { promoCode in
                 PromoCodeView(
                     promoCode: promoCode,
                     appStorePromoCodeLink: $appStorePromoCodeLink,
-                    appId: promoApp.appId,
                     copyMode: copyMode,
                     showCopyToClipboardNotification: showCopiedToClipboardNotification
                 )
@@ -35,12 +49,12 @@ struct PromoCodesGridView: View {
 
 // Hack to making archive build work
 #if DEBUG
-#Preview(traits: .sampleData) {
-    PromoCodesGridView(
-        promoApp: SampleData.promoApp2,
-        appStorePromoCodeLink: .constant(""),
-        copyMode: .code,
-        showCopiedToClipboardNotification: {content, copyMode in}
-    )
-}
+    #Preview(traits: .sampleData) {
+        PromoCodesGridView(
+            promoAppId: SampleData.promoApp2.appId,
+            appStorePromoCodeLink: .constant(""),
+            copyMode: .code,
+            showCopiedToClipboardNotification: { content, copyMode in }
+        )
+    }
 #endif

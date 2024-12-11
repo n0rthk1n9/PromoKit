@@ -25,7 +25,7 @@ struct PromoCodesView: View {
                 )
             } else {
                 List(promoApp.promoCodes) { promoCode in
-                    Text("\(promoCode.code) belongs to \(promoApp.name)")
+                    Text(promoCode.code)
                 }
             }
             Button("Import Promo Codes") {

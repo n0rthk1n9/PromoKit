@@ -14,6 +14,11 @@ struct AddPromoAppView: View {
 
     @State private var promoApp = PromoApp()
 
+    private var isFormValid: Bool {
+        !promoApp.name.isEmpty && !promoApp.version.isEmpty && !promoApp.link.isEmpty && !promoApp.appId.isEmpty
+            && !promoApp.promoCodes.isEmpty
+    }
+
     var body: some View {
         NavigationStack {
             Form {
@@ -40,6 +45,7 @@ struct AddPromoAppView: View {
                     } label: {
                         Text("Add")
                     }
+                    .disabled(!isFormValid)
                 }
             }
             .onChange(of: promoApp.link) { oldValue, newValue in

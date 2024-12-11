@@ -39,6 +39,7 @@ struct PromoAppRowHeaderView: View {
             .labelsHidden()
             .disabled(promoApp.validCodesRemaining == 0)
             .onChange(of: isLinkMode) { newValue, oldValue in
+                appStorePromoCodeLink = ""
                 let newMode: CopyMode = newValue ? .code : .link
                 onCopyModeChange(newMode)
             }

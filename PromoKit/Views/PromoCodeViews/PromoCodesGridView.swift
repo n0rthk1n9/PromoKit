@@ -9,9 +9,8 @@ import SwiftUI
 
 struct PromoCodesGridView: View {
     var promoApp: PromoApp
-    @Binding var appStorePromoCodeLink: String
     let copyMode: CopyMode
-    let showCopiedToClipboardNotification: () -> Void
+    let showCopiedToClipboardNotification: (String) -> Void
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -24,7 +23,6 @@ struct PromoCodesGridView: View {
                 PromoCodeView(
                     promoCode: promoCode,
                     appId: promoApp.appId,
-                    appStorePromoCodeLink: $appStorePromoCodeLink,
                     copyMode: copyMode,
                     showCopyToClipboardNotification: showCopiedToClipboardNotification
                 )
@@ -36,6 +34,10 @@ struct PromoCodesGridView: View {
 // Hack to making archive build work
 #if DEBUG
 #Preview(traits: .sampleData) {
-    PromoCodesGridView(promoApp: SampleData.promoApp2, appStorePromoCodeLink: .constant(""), copyMode: .code, showCopiedToClipboardNotification: {})
+    PromoCodesGridView(
+        promoApp: SampleData.promoApp2,
+        copyMode: .code,
+        showCopiedToClipboardNotification: {content in}
+    )
 }
 #endif

@@ -10,17 +10,12 @@ import SwiftUI
 
 struct PromoAppsView: View {
     @Environment(\.modelContext) var context
-    @Environment(\.colorScheme) private var colorScheme
     @State private var showAddPromoAppSheet = false
     @State private var copiedToClipboard = false
     @State private var copyMode: CopyMode = .code
     @State private var appStorePromoCodeLink: String = ""
 
     @Query(sort: \PromoApp.name) private var promoApps: [PromoApp]
-
-    var shadowColor: Color {
-        colorScheme == .dark ? Color.black.opacity(0.6) : Color.gray.opacity(0.3)
-    }
 
     var body: some View {
         NavigationStack {
@@ -37,7 +32,6 @@ struct PromoAppsView: View {
                         ForEach(promoApps) { promoApp in
                             PromoAppRowView(
                                 promoApp: promoApp,
-                                appStorePromoCodeLink: $appStorePromoCodeLink,
                                 copyMode: copyMode,
                                 showCopiedToClipboardNotification: showCopiedToClipboardNotification
                             )
@@ -118,7 +112,12 @@ struct PromoAppsView: View {
         }
     }
 
-    func showCopiedToClipboardNotification() {
+    func showCopiedToClipboardNotification(with copiedContent: String) {
+        if copyMode == .link {
+            appStorePromoCodeLink = copiedContent
+        } else {
+            appStorePromoCodeLink = ""
+        }
         withAnimation {
             copiedToClipboard = true
         }

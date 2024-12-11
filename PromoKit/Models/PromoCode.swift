@@ -24,17 +24,22 @@ class PromoCode {
         self.promoApp = promoApp
     }
 
-    // Computed property to check if the code is invalid (used or expired)
     var isInvalid: Bool {
         return isUsed || daysRemaining <= 0
     }
 
-    // Computed property to calculate the days remaining until the code runs out
     var daysRemaining: Int {
         guard let expirationDate = Calendar.current.date(byAdding: .day, value: 28, to: dateAdded) else {
             return 0
         }
         let remaining = Calendar.current.dateComponents([.day], from: Date(), to: expirationDate).day ?? 0
-        return max(remaining, 0)  // Ensure the value doesn't go below zero
+        return max(remaining, 0)
+    }
+
+    var promoURL: String? {
+        guard let appId = promoApp?.appId, !code.isEmpty else {
+            return nil
+        }
+        return "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
     }
 }

@@ -26,14 +26,11 @@ final class PromoApp {
         self.promoCodes = promoCodes
     }
 
-    // Computed property to calculate the days remaining until the promo codes run out
     var daysRemaining: Int {
-        // Check if all promo codes are used or invalid
         if promoCodes.allSatisfy({ $0.isUsed || $0.isInvalid }) {
             return 0
         }
 
-        // Filter promo codes that haven't expired yet
         let validPromoCodes = promoCodes.filter {
             guard let expirationDate = Calendar.current.date(byAdding: .day, value: 28, to: $0.dateAdded) else {
                 return false
@@ -41,15 +38,13 @@ final class PromoApp {
             return expirationDate >= Date()
         }
 
-        // Find the earliest expiration date among valid promo codes
         guard let earliestExpirationDate = validPromoCodes
             .compactMap({ Calendar.current.date(byAdding: .day, value: 28, to: $0.dateAdded) })
             .min() else {
                 return 0
             }
 
-        // Calculate the days remaining until the earliest valid expiration date
         let remaining = Calendar.current.dateComponents([.day], from: Date(), to: earliestExpirationDate).day ?? 0
-        return max(remaining, 0)  // Ensure the value doesn't go below zero
+        return max(remaining, 0)
     }
 }

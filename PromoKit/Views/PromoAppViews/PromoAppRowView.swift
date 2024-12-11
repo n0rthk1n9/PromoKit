@@ -9,16 +9,14 @@ import SwiftUI
 
 struct PromoAppRowView: View {
     var promoApp: PromoApp
-    @Binding var appStorePromoCodeLink: String
     let copyMode: CopyMode
-    let showCopiedToClipboardNotification: () -> Void
+    let showCopiedToClipboardNotification: (String) -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
             PromoAppRowHeaderView(promoApp: promoApp)
             PromoCodesGridView(
                 promoApp: promoApp,
-                appStorePromoCodeLink: $appStorePromoCodeLink,
                 copyMode: copyMode,
                 showCopiedToClipboardNotification: showCopiedToClipboardNotification
             )
@@ -32,9 +30,8 @@ struct PromoAppRowView: View {
     #Preview(traits: .sampleData) {
         PromoAppRowView(
             promoApp: SampleData.promoApp2,
-            appStorePromoCodeLink: .constant(""),
             copyMode: .code,
-            showCopiedToClipboardNotification: {}
+            showCopiedToClipboardNotification: {content in}
         )
     }
 #endif

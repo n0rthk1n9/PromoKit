@@ -10,9 +10,8 @@ import SwiftUI
 struct PromoCodeView: View {
     var promoCode: PromoCode
     let appId: String
-    @Binding var appStorePromoCodeLink: String
     let copyMode: CopyMode
-    let showCopyToClipboardNotification: () -> Void
+    let showCopyToClipboardNotification: (String) -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -57,23 +56,18 @@ struct PromoCodeView: View {
     }
 
     func copyToClipboard() {
-        let contentToCopy: String
+        var contentToCopy: String = ""
         if copyMode == .link {
-            contentToCopy = generateLink(for: appId, with: promoCode.code)
+            if let promoURL = promoCode.promoURL {
+                contentToCopy = promoURL
+            }
         } else {
-            appStorePromoCodeLink = ""
             contentToCopy = promoCode.code
         }
         promoCode.isUsed = true
-        showCopyToClipboardNotification()
+        showCopyToClipboardNotification(contentToCopy)
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         UIPasteboard.general.string = contentToCopy
-    }
-
-    func generateLink(for appId: String, with code: String) -> String {
-        self.appStorePromoCodeLink = "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
-
-        return "https://apps.apple.com/redeem?ctx=offercodes&id=\(appId)&code=\(code)"
     }
 }
 
@@ -83,9 +77,8 @@ struct PromoCodeView: View {
         PromoCodeView(
             promoCode: SampleData.promoCode1PromoApp1,
             appId: SampleData.promoApp1.appId,
-            appStorePromoCodeLink: .constant(""),
             copyMode: .code,
-            showCopyToClipboardNotification: {}
+            showCopyToClipboardNotification: {content in}
         )
     }
 #endif
@@ -96,9 +89,8 @@ struct PromoCodeView: View {
         PromoCodeView(
             promoCode: SampleData.promoCode2PromoApp1,
             appId: SampleData.promoApp1.appId,
-            appStorePromoCodeLink: .constant(""),
             copyMode: .code,
-            showCopyToClipboardNotification: {}
+            showCopyToClipboardNotification: {content in}
         )
     }
 #endif

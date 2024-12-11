@@ -9,12 +9,40 @@ import SwiftUI
 
 struct PromoAppRowHeaderView: View {
     var promoApp: PromoApp
+    @Binding var appStorePromoCodeLink: String
+    @Binding var copyMode: CopyMode
+    var onCopyModeChange: (CopyMode) -> Void
+
+    @State private var isLinkMode: Bool = false
 
     var body: some View {
-        Text(promoApp.name)
-            .font(.largeTitle)
-            .bold()
-            .fontDesign(.rounded)
+        HStack {
+            Text(promoApp.name)
+                .font(.largeTitle)
+                .bold()
+                .fontDesign(.rounded)
+            Spacer()
+            if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink) {
+                ShareLink(item: appStorePromoCodeLink) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.body)
+                }
+            }
+            Image(systemName: "link")
+            Toggle(isOn: $isLinkMode) {
+                Image(systemName: "link")
+            }
+            .labelsHidden()
+            .disabled(promoApp.validCodesRemaining == 0)
+            .onChange(of: isLinkMode) { newValue, oldValue in
+                let newMode: CopyMode = newValue ? .code : .link
+                onCopyModeChange(newMode)
+            }
+
+        }
+        .onAppear {
+            isLinkMode = copyMode == .link
+        }
         Text(
             promoApp.daysRemaining > 0
                 ? "\(promoApp.daysRemaining) days remaining" : "🚫 All codes expired or used"
@@ -45,6 +73,11 @@ struct PromoAppRowHeaderView: View {
 // Hack to making archive build work
 #if DEBUG
     #Preview(traits: .sampleData) {
-        PromoAppRowHeaderView(promoApp: SampleData.promoApp2)
+        PromoAppRowHeaderView(
+            promoApp: SampleData.promoApp2,
+            appStorePromoCodeLink: .constant(""),
+            copyMode: .constant(.code),
+            onCopyModeChange: { copyMode in }
+        )
     }
 #endif

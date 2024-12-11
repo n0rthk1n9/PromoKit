@@ -9,9 +9,10 @@ import SwiftUI
 
 struct PromoCodeView: View {
     var promoCode: PromoCode
+    @Binding var appStorePromoCodeLink: String
     let appId: String
     let copyMode: CopyMode
-    let showCopyToClipboardNotification: (String) -> Void
+    let showCopyToClipboardNotification: (String, CopyMode) -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,8 +65,9 @@ struct PromoCodeView: View {
         } else {
             contentToCopy = promoCode.code
         }
+        appStorePromoCodeLink = contentToCopy
         promoCode.isUsed = true
-        showCopyToClipboardNotification(contentToCopy)
+        showCopyToClipboardNotification(contentToCopy, copyMode)
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         UIPasteboard.general.string = contentToCopy
     }
@@ -76,9 +78,10 @@ struct PromoCodeView: View {
     #Preview(traits: .sampleData) {
         PromoCodeView(
             promoCode: SampleData.promoCode1PromoApp1,
+            appStorePromoCodeLink: .constant(""),
             appId: SampleData.promoApp1.appId,
             copyMode: .code,
-            showCopyToClipboardNotification: {content in}
+            showCopyToClipboardNotification: {content, copyMode in}
         )
     }
 #endif
@@ -88,9 +91,10 @@ struct PromoCodeView: View {
     #Preview(traits: .sampleData) {
         PromoCodeView(
             promoCode: SampleData.promoCode2PromoApp1,
+            appStorePromoCodeLink: .constant(""),
             appId: SampleData.promoApp1.appId,
             copyMode: .code,
-            showCopyToClipboardNotification: {content in}
+            showCopyToClipboardNotification: {content, copyMode in}
         )
     }
 #endif

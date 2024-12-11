@@ -9,8 +9,9 @@ import SwiftUI
 
 struct PromoCodesGridView: View {
     var promoApp: PromoApp
+    @Binding var appStorePromoCodeLink: String
     let copyMode: CopyMode
-    let showCopiedToClipboardNotification: (String) -> Void
+    let showCopiedToClipboardNotification: (String, CopyMode) -> Void
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -22,6 +23,7 @@ struct PromoCodesGridView: View {
             ForEach(promoApp.promoCodes) { promoCode in
                 PromoCodeView(
                     promoCode: promoCode,
+                    appStorePromoCodeLink: $appStorePromoCodeLink,
                     appId: promoApp.appId,
                     copyMode: copyMode,
                     showCopyToClipboardNotification: showCopiedToClipboardNotification
@@ -36,8 +38,9 @@ struct PromoCodesGridView: View {
 #Preview(traits: .sampleData) {
     PromoCodesGridView(
         promoApp: SampleData.promoApp2,
+        appStorePromoCodeLink: .constant(""),
         copyMode: .code,
-        showCopiedToClipboardNotification: {content in}
+        showCopiedToClipboardNotification: {content, copyMode in}
     )
 }
 #endif

@@ -13,26 +13,17 @@ struct PromoAppsView: View {
     @State private var showAddPromoAppSheet = false
     @State private var copiedToClipboard = false
     @State private var copyMode: CopyMode = .code
-    @State private var appStorePromoCodeLink: String = ""
 
     @Query(sort: \PromoApp.name) private var promoApps: [PromoApp]
 
     var body: some View {
         NavigationStack {
             VStack {
-                Picker("Copy Mode", selection: $copyMode) {
-                    ForEach(CopyMode.allCases) { mode in
-                        Text(mode.rawValue).tag(mode)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
                 if !promoApps.isEmpty {
                     List {
                         ForEach(promoApps) { promoApp in
                             PromoAppRowView(
                                 promoApp: promoApp,
-                                copyMode: copyMode,
                                 showCopiedToClipboardNotification: showCopiedToClipboardNotification
                             )
                         }
@@ -68,21 +59,6 @@ struct PromoAppsView: View {
             }
             .navigationTitle("Promo Kit")
             .toolbar {
-                if appStorePromoCodeLink != "" {
-                    withAnimation(.snappy) {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink) {
-                                ShareLink(item: appStorePromoCodeLink) {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .font(.body)
-                                }
-                                .transition(.opacity)
-                                .padding(0)
-                                .frame(width: 20)
-                            }
-                        }
-                    }
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showAddPromoAppSheet.toggle()
@@ -112,12 +88,8 @@ struct PromoAppsView: View {
         }
     }
 
-    func showCopiedToClipboardNotification(with copiedContent: String) {
-        if copyMode == .link {
-            appStorePromoCodeLink = copiedContent
-        } else {
-            appStorePromoCodeLink = ""
-        }
+    func showCopiedToClipboardNotification(with copiedContent: String, copyMode: CopyMode) {
+        self.copyMode = copyMode
         withAnimation {
             copiedToClipboard = true
         }

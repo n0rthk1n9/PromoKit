@@ -25,7 +25,7 @@ struct PromoCodesGridView: View {
         let predicate = #Predicate<PromoCode> { promoCode in
             promoCode.promoApp?.appId == promoAppId
         }
-        _promoCodes = Query(filter: predicate)
+        _promoCodes = Query(filter: predicate, sort: \PromoCode.code)
     }
 
     let columns = [

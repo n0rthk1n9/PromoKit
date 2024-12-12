@@ -20,27 +20,27 @@ struct PromoAppsView: View {
         NavigationStack {
             VStack {
                 if !promoApps.isEmpty {
-                    List {
+                    ScrollView {
                         ForEach(promoApps) { promoApp in
                             PromoAppRowView(
-                                promoApp: promoApp,
+                                promoAppId: promoApp.appId,
                                 showCopiedToClipboardNotification: showCopiedToClipboardNotification
                             )
-                        }
-                        .onDelete(perform: deletePromoApp)
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(.secondary.opacity(0.2))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(.secondary, lineWidth: 1)
+                            .background {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.secondary.opacity(0.2))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.secondary, lineWidth: 1)
 
-                                )
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 1)
-                        )
-                        .listRowSeparator(.hidden)
+                                    )
+                            }
+                            .padding(.bottom)
+                        }
+
+                        .onDelete(perform: deletePromoApp)
                     }
+                    .padding()
                 } else {
                     ContentUnavailableView {
                         Label("Add your app", systemImage: "plus")
@@ -77,9 +77,12 @@ struct PromoAppsView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal, 20)
                     .background(
-                        Capsule()
-                            .stroke(.white, lineWidth: 2)
-                            .foregroundStyle(.regularMaterial)
+                        ZStack {
+                            Capsule()
+                                .fill(.regularMaterial)  // Fill with a background color or material
+                            Capsule()
+                                .stroke(.white, lineWidth: 2)  // Stroke with white outline
+                        }
                     )
                     .foregroundColor(Color.primary)
                     .transition(.opacity)

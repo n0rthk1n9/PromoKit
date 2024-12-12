@@ -35,57 +35,59 @@ struct PromoAppRowView: View {
     }
 
     var body: some View {
-        // BAD FIX THAT
-        @Bindable var promoApp = promoApps.first!
+        if let promoApp = promoApps.first {
+            @Bindable var promoApp = promoApp
 
-        VStack(alignment: .leading, spacing: 18) {
-            PromoAppRowHeaderView(
-                promoApp: promoApp,
-                appStorePromoCodeLink: $appStorePromoCodeLink,
-                copyMode: $copyMode,
-                onCopyModeChange: { newMode in
-                    copyMode = newMode
-                }
-            )
-            HStack {
-                Button {
-                    copyMode = .code
-                    copyFirstUnusedPromoCode()
-                } label: {
-                    Label("Copy code", systemImage: "doc.on.doc")
-                        .foregroundStyle(.blue)
-                        .frame(maxWidth: .infinity)
-                }
-                .tint(.blue)
-                
-                Button {
-                    copyMode = .link
-                    copyFirstUnusedPromoCode()
-                } label: {
-                    Label("Copy link", systemImage: "doc.on.doc")
-                        .foregroundStyle(.mint)
-                        .frame(maxWidth: .infinity)
-                }
-                .tint(.mint)
-            }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-            .disabled(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid })
-            .opacity(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid } ? 0.3 : 1.0)
-            
-            DisclosureGroup(isExpanded: $promoApp.isPromoCodesSectionExpanded) {
-                PromoCodesGridView(
-                    promoAppId: promoApp.appId,
+            VStack(alignment: .leading, spacing: 18) {
+                PromoAppRowHeaderView(
+                    promoApp: promoApp,
                     appStorePromoCodeLink: $appStorePromoCodeLink,
-                    copyMode: copyMode,
-                    showCopiedToClipboardNotification: showCopiedToClipboardNotification
+                    copyMode: $copyMode,
+                    onCopyModeChange: { newMode in
+                        copyMode = newMode
+                    }
                 )
-            } label: {
-                Text("Codes")
-            }
+                HStack {
+                    Button {
+                        copyMode = .code
+                        copyFirstUnusedPromoCode()
+                    } label: {
+                        Label("Copy code", systemImage: "doc.on.doc")
+                            .foregroundStyle(.blue)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .tint(.blue)
 
+                    Button {
+                        copyMode = .link
+                        copyFirstUnusedPromoCode()
+                    } label: {
+                        Label("Copy link", systemImage: "doc.on.doc")
+                            .foregroundStyle(.mint)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .tint(.mint)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .disabled(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid })
+                .opacity(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid } ? 0.3 : 1.0)
+
+                DisclosureGroup(isExpanded: $promoApp.isPromoCodesSectionExpanded) {
+                    PromoCodesGridView(
+                        promoAppId: promoApp.appId,
+                        appStorePromoCodeLink: $appStorePromoCodeLink,
+                        copyMode: copyMode,
+                        showCopiedToClipboardNotification: showCopiedToClipboardNotification
+                    )
+                    .padding(1)
+                } label: {
+                    Text("Codes")
+                }
+
+            }
+            .padding()
         }
-        .padding()
     }
 
     func copyFirstUnusedPromoCode() {

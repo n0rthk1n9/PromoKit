@@ -36,6 +36,8 @@ struct PromoAppsView: View {
                                     )
                             }
                             .padding(.bottom)
+                            .padding(.horizontal, 1)
+                            .padding(.top, 1)
                         }
 
                         .onDelete(perform: deletePromoApp)

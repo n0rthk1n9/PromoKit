@@ -16,6 +16,19 @@ struct PromoAppsView: View {
 
     @Query(sort: \PromoApp.name, animation: .easeInOut(duration: 0.35)) private var promoApps: [PromoApp]
 
+    init() {
+        var titleFont = UIFont.preferredFont(forTextStyle: .largeTitle)
+        titleFont = UIFont(
+            descriptor:
+                titleFont.fontDescriptor
+                .withDesign(.rounded)?
+                .withSymbolicTraits(.traitBold)
+                ?? titleFont.fontDescriptor,
+            size: titleFont.pointSize
+        )
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: titleFont]
+    }
+
     var body: some View {
         NavigationStack {
             VStack {

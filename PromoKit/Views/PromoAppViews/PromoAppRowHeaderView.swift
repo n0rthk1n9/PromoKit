@@ -25,7 +25,7 @@ struct PromoAppRowHeaderView: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(promoApp.name)
-                        .font(.largeTitle)
+                        .font(.title)
                         .bold()
                         .fontDesign(.rounded)
                     Text("Version: \(promoApp.version)")

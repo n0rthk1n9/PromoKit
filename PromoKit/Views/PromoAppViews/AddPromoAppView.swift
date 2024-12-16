@@ -36,7 +36,14 @@ struct AddPromoAppView: View {
             }
             .navigationTitle("Add App")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
                     Button {
                         withAnimation {
                             context.insert(promoApp)
@@ -53,6 +60,8 @@ struct AddPromoAppView: View {
                     updateAppIdFromLink()
                 }
             }
+            .autocorrectionDisabled()
+            .submitLabel(.done)
         }
     }
 

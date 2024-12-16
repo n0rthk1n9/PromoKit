@@ -82,6 +82,7 @@ struct PromoAppSwipeActionView<Content: View>: View {
                     ForEach(actions) { button in
                         Button {
                             Task {
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                 isEnabled = false
                                 resetPostion()
                                 try? await Task.sleep(for: .seconds(0.25))

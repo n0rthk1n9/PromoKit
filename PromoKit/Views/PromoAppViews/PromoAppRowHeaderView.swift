@@ -37,6 +37,7 @@ struct PromoAppRowHeaderView: View {
                         Image(systemName: "square.and.arrow.up")
                             .font(.body)
                     }
+                    .accessibilityLabel(Text("Share promo code link"))
                 }
                 Image(systemName: "link")
                 Toggle(isOn: $isLinkMode) {
@@ -49,6 +50,7 @@ struct PromoAppRowHeaderView: View {
                     let newMode: CopyMode = newValue ? .code : .link
                     onCopyModeChange(newMode)
                 }
+                .accessibilityLabel(promoApp.validCodesRemaining == 0 ? "No valid promo codes available" : "Switch between copy promo code link and copy promo code mode")
             }
             .padding()
         }
@@ -59,7 +61,7 @@ struct PromoAppRowHeaderView: View {
         VStack(alignment: .leading) {
             Text(
                 promoApp.daysRemaining > 0
-                    ? "\(promoApp.daysRemaining) days remaining" : "🚫 All codes expired or used"
+                    ? "\(promoApp.daysRemaining) days remaining to redeem the codes" : "🚫 All codes expired or used"
             )
             .font(.headline)
             .foregroundStyle(promoApp.daysRemaining > 0 ? .green : .red)
@@ -67,6 +69,7 @@ struct PromoAppRowHeaderView: View {
                 promoApp.daysRemaining > 0 ? .identity : .move(edge: .top)
             )
             .animation(.easeIn(duration: 0.4), value: promoApp.daysRemaining)
+            .accessibilityLabel("\(promoApp.daysRemaining > 0 ? "\(promoApp.daysRemaining) days remaining to redeem the codes" : "All codes expired or used")")
             ProgressView(value: progressValue)
                 .progressViewStyle(
                     LinearProgressViewStyle(
@@ -74,6 +77,7 @@ struct PromoAppRowHeaderView: View {
                     )
                 )
                 .padding(.bottom, 4)
+                .accessibilityHidden(true)
 
             Text("\(promoApp.validCodesRemaining) of \(promoApp.promoCodes.count) codes available")
                 .font(.subheadline)

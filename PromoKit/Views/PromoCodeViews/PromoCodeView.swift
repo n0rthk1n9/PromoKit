@@ -67,6 +67,51 @@ struct PromoCodeView: View {
         } message: {
             Text("Are you sure you want to mark this promo code as unused?")
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel { label in
+            if promoCode.isUsed {
+                Text("Used promo code")
+            } else if promoCode.isInvalid {
+                Text("Promo code invalid")
+            } else {
+                if copyMode == .link {
+                    Text("Copy promo code link")
+                } else {
+                    Text("Copy Promo code")
+                }
+            }
+        }
+        .accessibilityActions {
+            if promoCode.isUsed && promoCode.daysRemaining != 0 {
+                Button {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    showingUnuseAlert = true
+                } label: {
+                    Text("Mark promo code as unused")
+                }
+            }
+            if !promoCode.isInvalid {
+                if copyMode == .link {
+                    Button {
+                        copyToClipboard()
+                        var highPriorityAnnouncement = AttributedString("Promo code link copied to clipboard")
+                        highPriorityAnnouncement.accessibilitySpeechAnnouncementPriority = .high
+                        AccessibilityNotification.Announcement(highPriorityAnnouncement).post()
+                    } label: {
+                        Text("Copy promo code link")
+                    }
+                } else {
+                    Button {
+                        copyToClipboard()
+                        var highPriorityAnnouncement = AttributedString("Promo code copied to clipboard")
+                        highPriorityAnnouncement.accessibilitySpeechAnnouncementPriority = .high
+                        AccessibilityNotification.Announcement(highPriorityAnnouncement).post()
+                    } label: {
+                        Text("Copy promo code")
+                    }
+                }
+            }
+        }
     }
 
     func copyToClipboard() {

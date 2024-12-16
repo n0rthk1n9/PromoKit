@@ -48,6 +48,7 @@ struct PromoAppRowView: View {
                         copyMode = newMode
                     }
                 )
+                .accessibilityElement(children: .combine)
                 HStack {
                     Button {
                         copyMode = .code
@@ -58,6 +59,9 @@ struct PromoAppRowView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .tint(.blue)
+                    .accessibilityLabel(
+                        promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid }
+                            ? "No valid promo code to copy available" : "Copy first unused promo code")
 
                     Button {
                         copyMode = .link
@@ -68,6 +72,9 @@ struct PromoAppRowView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .tint(.mint)
+                    .accessibilityLabel(
+                        promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid }
+                            ? "No valid promo code to copy available" : "Copy first unused promo code link")
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
@@ -84,10 +91,11 @@ struct PromoAppRowView: View {
                     )
                     .padding(1)
                 } label: {
-                    Text("Codes")
+                    Text("Promo codes")
                 }
                 .padding([.horizontal, .bottom])
-
+                .accessibilityLabel(
+                    promoApp.isPromoCodesSectionExpanded ? "Collaps promo codes section" : "Expand promo codes section")
             }
             .background {
                 if colorScheme == .dark {
@@ -97,7 +105,7 @@ struct PromoAppRowView: View {
                 }
             }
             .background(colorScheme == .dark ? .black : .white)
-            
+
         }
     }
 

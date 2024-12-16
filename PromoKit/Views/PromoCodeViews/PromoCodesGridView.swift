@@ -44,6 +44,7 @@ struct PromoCodesGridView: View {
                 )
             }
         }
+        .accessibilityLabel(Text("Promo codes"))
     }
 }
 

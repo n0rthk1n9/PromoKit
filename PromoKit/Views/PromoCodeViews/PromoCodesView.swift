@@ -24,8 +24,9 @@ struct PromoCodesView: View {
                         Text("Generate promo codes in App Store Connect, save the generated file and import it here")
                 )
             } else {
-                List(promoApp.promoCodes) { promoCode in
-                    Text(promoCode.code)
+                List(promoApp.promoCodes.indices, id: \.self) { index in
+                    Text(promoApp.promoCodes[index].code)
+                        .accessibilityLabel("Promo code \(index + 1)")
                 }
             }
             Button("Import Promo Codes") {

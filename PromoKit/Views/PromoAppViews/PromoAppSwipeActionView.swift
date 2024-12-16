@@ -12,7 +12,7 @@ struct PromoAppSwipeActionView<Content: View>: View {
     var direction: SwipeDirection = .trailing
     @ViewBuilder var content: Content
     @ActionBuilder var actions: [Action]
-    
+
     let viewID = "ContentView"
     @State private var isEnabled: Bool = true
     @State private var scrollOffset: CGFloat = .zero
@@ -34,7 +34,7 @@ struct PromoAppSwipeActionView<Content: View>: View {
                         .overlay {
                             GeometryReader {
                                 let minX = $0.frame(in: .scrollView(axis: .horizontal)).minX
-                                
+
                                 Color.clear
                                     .preference(key: OffsetKey.self, value: minX)
                                     .onPreferenceChange(OffsetKey.self) {
@@ -42,7 +42,7 @@ struct PromoAppSwipeActionView<Content: View>: View {
                                     }
                             }
                         }
-                    
+
                     ActionButtons {
                         withAnimation(.snappy) {
                             scrollProxy.scrollTo(viewID, anchor: direction == .trailing ? .topLeading : .topTrailing)
@@ -71,9 +71,9 @@ struct PromoAppSwipeActionView<Content: View>: View {
         .transition(PromoAppSwipeToDeleteTransition())
         .padding(.bottom, 20)
     }
-    
+
     @ViewBuilder
-    func ActionButtons(resetPostion: @escaping () -> ()) -> some View {
+    func ActionButtons(resetPostion: @escaping () -> Void) -> some View {
         Rectangle()
             .fill(.clear)
             .frame(width: CGFloat(actions.count) * 100)
@@ -104,10 +104,10 @@ struct PromoAppSwipeActionView<Content: View>: View {
                 }
             }
     }
-    
-    func scrollOffset(_ proxy: GeometryProxy) -> CGFloat {
+
+    nonisolated func scrollOffset(_ proxy: GeometryProxy) -> CGFloat {
         let minX = proxy.frame(in: .scrollView(axis: .horizontal)).minX
-        
+
         return direction == .trailing ? (minX > 0 ? -minX : 0) : (minX < 0 ? -minX : 0)
     }
 }
@@ -116,6 +116,6 @@ struct PromoAppSwipeActionView<Content: View>: View {
     PromoAppSwipeActionView {
         Text("Preview")
     } actions: {
-        
+
     }
 }

@@ -40,14 +40,12 @@ struct PromoAppsView: View {
                                     promoAppId: promoApp.appId,
                                     showCopiedToClipboardNotification: showCopiedToClipboardNotification
                                 )
-                                .accessibilityElement(children: .combine)
                             } actions: {
                                 Action(tint: .red, icon: "trash.fill") {
                                     delete(promoApp)
                                 }
                             }
                         }
-
                     }
                     .scrollIndicators(.hidden)
                     .padding([.horizontal, .bottom])

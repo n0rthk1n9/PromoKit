@@ -22,7 +22,7 @@ struct PromoAppsView: View {
                 if !promoApps.isEmpty {
                     ScrollView {
                         ForEach(promoApps) { promoApp in
-                            PromoAppSwipeActionView(cornerRadius: 10, direction: .trailing) {
+                            PromoAppSwipeActionView(cornerRadius: 28, direction: .trailing) {
                                 PromoAppRowView(
                                     promoAppId: promoApp.appId,
                                     showCopiedToClipboardNotification: showCopiedToClipboardNotification
@@ -36,7 +36,7 @@ struct PromoAppsView: View {
 
                     }
                     .scrollIndicators(.hidden)
-                    .padding()
+                    .padding([.horizontal, .bottom])
                 } else {
                     ContentUnavailableView {
                         Label("Add your app", systemImage: "plus")

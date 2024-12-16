@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PromoAppRowHeaderView: View {
+    @Environment(\.colorScheme) private var colorScheme
     var promoApp: PromoApp
     @Binding var appStorePromoCodeLink: String
     @Binding var copyMode: CopyMode
@@ -16,58 +17,69 @@ struct PromoAppRowHeaderView: View {
     @State private var isLinkMode: Bool = false
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(promoApp.name)
-                    .font(.largeTitle)
-                    .bold()
-                    .fontDesign(.rounded)
-                Text("Version: \(promoApp.version)")
-                    .font(.caption)
-            }
-            Spacer()
-            if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink), isLinkMode {
-                ShareLink(item: appStorePromoCodeLink) {
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.body)
+        ZStack {
+            Rectangle()
+                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.secondary.opacity(0.1))
+                .roundedCorner(24, corners: [.topLeft, .topRight])
+                .roundedCorner(10, corners: [.bottomLeft, .bottomRight])
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(promoApp.name)
+                        .font(.largeTitle)
+                        .bold()
+                        .fontDesign(.rounded)
+                    Text("Version: \(promoApp.version)")
+                        .font(.caption)
+                }
+                Spacer()
+                if let appStorePromoCodeLink = URL(string: appStorePromoCodeLink), isLinkMode {
+                    ShareLink(item: appStorePromoCodeLink) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.body)
+                    }
+                }
+                Image(systemName: "link")
+                Toggle(isOn: $isLinkMode) {
+                    Image(systemName: "link")
+                }
+                .labelsHidden()
+                .disabled(promoApp.validCodesRemaining == 0)
+                .onChange(of: isLinkMode) { newValue, oldValue in
+                    appStorePromoCodeLink = ""
+                    let newMode: CopyMode = newValue ? .code : .link
+                    onCopyModeChange(newMode)
                 }
             }
-            Image(systemName: "link")
-            Toggle(isOn: $isLinkMode) {
-                Image(systemName: "link")
-            }
-            .labelsHidden()
-            .disabled(promoApp.validCodesRemaining == 0)
-            .onChange(of: isLinkMode) { newValue, oldValue in
-                appStorePromoCodeLink = ""
-                let newMode: CopyMode = newValue ? .code : .link
-                onCopyModeChange(newMode)
-            }
-
+            .padding()
         }
+        .padding(4)
         .onAppear {
             isLinkMode = copyMode == .link
         }
-        Text(
-            promoApp.daysRemaining > 0
-                ? "\(promoApp.daysRemaining) days remaining" : "🚫 All codes expired or used"
-        )
-        .font(.headline)
-        .foregroundStyle(promoApp.daysRemaining > 0 ? .green : .red)
-        .transition(
-            promoApp.daysRemaining > 0 ? .identity : .move(edge: .top)
-        )
-        .animation(.easeIn(duration: 0.4), value: promoApp.daysRemaining)
-        ProgressView(value: progressValue)
-            .progressViewStyle(
-                LinearProgressViewStyle(
-                    progressValue: progressValue
-                )
+        VStack(alignment: .leading) {
+            Text(
+                promoApp.daysRemaining > 0
+                    ? "\(promoApp.daysRemaining) days remaining" : "🚫 All codes expired or used"
             )
+            .font(.headline)
+            .foregroundStyle(promoApp.daysRemaining > 0 ? .green : .red)
+            .transition(
+                promoApp.daysRemaining > 0 ? .identity : .move(edge: .top)
+            )
+            .animation(.easeIn(duration: 0.4), value: promoApp.daysRemaining)
+            ProgressView(value: progressValue)
+                .progressViewStyle(
+                    LinearProgressViewStyle(
+                        progressValue: progressValue
+                    )
+                )
+                .padding(.bottom, 4)
 
-        Text("\(promoApp.validCodesRemaining) of \(promoApp.promoCodes.count) codes available")
-            .font(.subheadline)
-            .opacity(progressValue == 0 ? 0.2 : 1.0)
+            Text("\(promoApp.validCodesRemaining) of \(promoApp.promoCodes.count) codes available")
+                .font(.subheadline)
+                .opacity(progressValue == 0 ? 0.2 : 1.0)
+        }
+        .padding(.horizontal)
     }
 
     private var progressValue: Double {

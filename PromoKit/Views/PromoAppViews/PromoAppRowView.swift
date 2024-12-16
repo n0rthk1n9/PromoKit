@@ -39,7 +39,7 @@ struct PromoAppRowView: View {
         if let promoApp = promoApps.first {
             @Bindable var promoApp = promoApp
 
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 14) {
                 PromoAppRowHeaderView(
                     promoApp: promoApp,
                     appStorePromoCodeLink: $appStorePromoCodeLink,
@@ -73,6 +73,7 @@ struct PromoAppRowView: View {
                 .controlSize(.small)
                 .disabled(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid })
                 .opacity(promoApp.promoCodes.allSatisfy { $0.isUsed || $0.isInvalid } ? 0.3 : 1.0)
+                .padding(.horizontal)
 
                 DisclosureGroup(isExpanded: $promoApp.isPromoCodesSectionExpanded) {
                     PromoCodesGridView(
@@ -85,9 +86,9 @@ struct PromoAppRowView: View {
                 } label: {
                     Text("Codes")
                 }
+                .padding([.horizontal, .bottom])
 
             }
-            .padding()
             .background {
                 if colorScheme == .dark {
                     Color.secondary.opacity(0.2)

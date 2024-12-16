@@ -14,7 +14,7 @@ struct PromoAppsView: View {
     @State private var copiedToClipboard = false
     @State private var copyMode: CopyMode = .code
 
-    @Query(sort: \PromoApp.name) private var promoApps: [PromoApp]
+    @Query(sort: \PromoApp.name, animation: .easeInOut(duration: 0.35)) private var promoApps: [PromoApp]
 
     var body: some View {
         NavigationStack {
@@ -22,26 +22,20 @@ struct PromoAppsView: View {
                 if !promoApps.isEmpty {
                     ScrollView {
                         ForEach(promoApps) { promoApp in
-                            PromoAppRowView(
-                                promoAppId: promoApp.appId,
-                                showCopiedToClipboardNotification: showCopiedToClipboardNotification
-                            )
-                            .background {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.secondary.opacity(0.2))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(.secondary, lineWidth: 1)
-
-                                    )
+                            PromoAppSwipeActionView(cornerRadius: 10, direction: .trailing) {
+                                PromoAppRowView(
+                                    promoAppId: promoApp.appId,
+                                    showCopiedToClipboardNotification: showCopiedToClipboardNotification
+                                )
+                            } actions: {
+                                Action(tint: .red, icon: "trash.fill") {
+                                    delete(promoApp)
+                                }
                             }
-                            .padding(.bottom)
-                            .padding(.horizontal, 1)
-                            .padding(.top, 1)
                         }
 
-                        .onDelete(perform: deletePromoApp)
                     }
+                    .scrollIndicators(.hidden)
                     .padding()
                 } else {
                     ContentUnavailableView {
@@ -106,12 +100,10 @@ struct PromoAppsView: View {
         }
     }
 
-    func deletePromoApp(at offsets: IndexSet) {
-        for index in offsets {
-            let promoAppToDelete = promoApps[index]
-            withAnimation {
-                context.delete(promoAppToDelete)
-            }
+    func delete(_ promoApp: PromoApp) {
+        Task {
+            try? await Task.sleep(for: .seconds(0.25))
+            context.delete(promoApp)
         }
     }
 

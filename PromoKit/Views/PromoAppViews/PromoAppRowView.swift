@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct PromoAppRowView: View {
+    @Environment(\.colorScheme) private var colorScheme
     var promoAppId: String
     @State var appStorePromoCodeLink: String
     @State var copyMode: CopyMode
@@ -87,6 +88,15 @@ struct PromoAppRowView: View {
 
             }
             .padding()
+            .background {
+                if colorScheme == .dark {
+                    Color.secondary.opacity(0.2)
+                } else {
+                    Color.secondary.opacity(0.1)
+                }
+            }
+            .background(colorScheme == .dark ? .black : .white)
+            
         }
     }
 

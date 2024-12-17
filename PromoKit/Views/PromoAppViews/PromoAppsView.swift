@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import FreemiumKit
 
 struct PromoAppsView: View {
     @Environment(\.modelContext) var context
@@ -71,10 +72,10 @@ struct PromoAppsView: View {
             .navigationTitle("Promo Kit")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
+                    PaidFeatureButton("Add", systemImage: "plus") {
+                        promoApps.isEmpty
+                    } action: {
                         showAddPromoAppSheet.toggle()
-                    } label: {
-                        Label("Add", systemImage: "plus")
                     }
                 }
             }

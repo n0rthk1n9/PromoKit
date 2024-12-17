@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import FreemiumKit
 
 @main
 struct PromoKitApp: App {
@@ -27,6 +28,7 @@ struct PromoKitApp: App {
             MainView()
                 .modelContainer(sharedModelContainer)
                 .fontDesign(.rounded)
+                .environmentObject(FreemiumKit.shared)
         }
     }
 }

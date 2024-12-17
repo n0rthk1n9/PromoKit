@@ -77,7 +77,7 @@ struct PromoKitApp: App {
                     friendsAppLinks: [cihatsApps]
                 ),
                 // TODO: exchange with actual URL
-                .legalLinks(privacyURL: URL(string: "apple.com")!),
+                .legalLinks(privacyURL: URL(string: "https://promokit.app/privacy")!),
             ]
         )
     }

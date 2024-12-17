@@ -1,5 +1,5 @@
 {
-  "originHash" : "233a4677d2cbdfec93239140db758aa1e24994ce916b26b9a21825bc9c04feb3",
+  "originHash" : "fc4e0c7c24a7da886ac10bba9ec8302f56307a4aeb867f084941753b3302039a",
   "pins" : [
     {
       "identity" : "freemiumkit",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "15e874e9ef7402e4ace0ebb2f66926bea2662ad3",
         "version" : "1.16.1"
+      }
+    },
+    {
+      "identity" : "linkskit",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:FlineDev/LinksKit.git",
+      "state" : {
+        "revision" : "8e9f169ff5ab4670865c59b97148ede15658488c",
+        "version" : "1.1.0"
       }
     }
   ],

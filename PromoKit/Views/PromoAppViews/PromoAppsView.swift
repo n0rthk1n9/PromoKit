@@ -45,6 +45,9 @@ struct PromoAppsView: View {
                                     delete(promoApp)
                                 }
                             }
+                            .accessibilityAction(named: "Delete app from Promo Kit") {
+                                delete(promoApp)
+                            }
                         }
                     }
                     .scrollIndicators(.hidden)

@@ -60,8 +60,7 @@ struct PromoKitApp: App {
         LinksKit.configure(
             providerToken: "121426791",
             linkSections: [
-                // TODO: exchange with actual URL
-                .helpLinks(appID: "6503256642", faqURL: URL(string: ""), supportEmail: "promokit@xbow.dev"),
+                .helpLinks(appID: "6503256642", faqURL: URL(string: "https://promokit.app/faq"), supportEmail: "promokit@xbow.dev"),
                 .socialMenus(
                     appLinks: .appSocialLinks(
                         platforms: [.bluesky],

@@ -69,7 +69,8 @@ struct PromoKitApp: App {
                     ),
                     developerLinks: .developerSocialLinks(
                         platforms: [.bluesky, .mastodon(instance: "mastodon.social")],
-                        handle: "n0rthk1n9.bsky.social"
+                        handle: "n0rthk1n9.bsky.social",
+                        handleOverrides: [.mastodon(instance: "mastodon.social"): "n0rthk1n9"]
                     )
                 ),
                 .appMenus(

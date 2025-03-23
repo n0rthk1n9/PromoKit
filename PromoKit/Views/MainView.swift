@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FreemiumKit
 
 struct MainView: View {
     var body: some View {
@@ -22,4 +23,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .environmentObject(FreemiumKit.shared)
 }

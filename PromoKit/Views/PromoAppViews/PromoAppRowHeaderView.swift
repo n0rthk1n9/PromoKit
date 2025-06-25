@@ -19,7 +19,7 @@ struct PromoAppRowHeaderView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.secondary.opacity(0.1))
+                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.secondary.opacity(0.4))
                 .roundedCorner(24, corners: [.topLeft, .topRight])
                 .roundedCorner(10, corners: [.bottomLeft, .bottomRight])
             HStack {

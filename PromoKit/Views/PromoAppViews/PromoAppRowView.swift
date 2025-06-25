@@ -99,9 +99,9 @@ struct PromoAppRowView: View {
             }
             .background {
                 if colorScheme == .dark {
-                    Color.secondary.opacity(0.2)
+                    Color.secondary.opacity(0.4)
                 } else {
-                    Color.secondary.opacity(0.1)
+                    Color.secondary.opacity(0.3)
                 }
             }
             .background(colorScheme == .dark ? .black : .white)

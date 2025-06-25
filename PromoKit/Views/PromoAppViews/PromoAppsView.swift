@@ -167,5 +167,6 @@ struct PromoAppsView: View {
 #if DEBUG
     #Preview(traits: .sampleData) {
         PromoAppsView()
+            .environmentObject(FreemiumKit.shared)
     }
 #endif

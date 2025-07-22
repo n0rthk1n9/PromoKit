@@ -61,11 +61,13 @@ struct PromoAppsView: View {
                             "When you add an app, you can import promo codes from the file App Store Connect generates for you"
                         )
                     } actions: {
+                        #if DEBUG
                         Button {
                             generateSampleData()
                         } label: {
                             Text("Add a demo app to test the features")
                         }
+                        #endif
                     }
                 }
             }

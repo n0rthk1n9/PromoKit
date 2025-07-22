@@ -60,7 +60,7 @@ struct PromoKitApp: App {
         LinksKit.configure(
             providerToken: "121426791",
             linkSections: [
-                .helpLinks(appID: "6503256642", faqURL: URL(string: "https://promokit.app/faq"), supportEmail: "promokit@xbow.dev"),
+                .helpLinks(appID: "6503256642", faqURL: URL(string: "https://xbow.dev/promo-kit"), supportEmail: "promokit@xbow.dev"),
                 .socialMenus(
                     appLinks: .appSocialLinks(
                         platforms: [.bluesky],
@@ -70,13 +70,17 @@ struct PromoKitApp: App {
                         platforms: [.bluesky, .mastodon(instance: "mastodon.social")],
                         handle: "n0rthk1n9.bsky.social",
                         handleOverrides: [.mastodon(instance: "mastodon.social"): "n0rthk1n9"]
-                    )
+                    ),
                 ),
+                LinkSection(title: "Icon Design", entries: [
+                    .link(Link(title: "Llorenç Poy Ventura", systemImage: "paintpalette", url: URL(string: "https://www.behance.net/llpv")!))
+                    
+                ]),
                 .appMenus(
                     ownAppLinks: [ownApps],
                     friendsAppLinks: [cihatsApps]
                 ),
-                .legalLinks(privacyURL: URL(string: "https://promokit.app/privacy")!),
+                .legalLinks(privacyURL: URL(string: "https://xbow.dev/promo-kit/privacy")!),
             ]
         )
     }

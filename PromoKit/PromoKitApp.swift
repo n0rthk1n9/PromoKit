@@ -74,7 +74,6 @@ struct PromoKitApp: App {
                 ),
                 LinkSection(title: "Icon Design", entries: [
                     .link(Link(title: "Llorenç Poy Ventura", systemImage: "paintpalette", url: URL(string: "https://www.behance.net/llpv")!))
-                    
                 ]),
                 .appMenus(
                     ownAppLinks: [ownApps],

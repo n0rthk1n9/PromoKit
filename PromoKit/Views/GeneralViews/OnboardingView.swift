@@ -28,11 +28,11 @@ struct OnboardingView<Icon: View>: View {
         self.onContinue = onContinue
         self._animateCards = .init(initialValue: Array(repeating: false, count: self.cards.count))
     }
-    
+
     @State private var animateIcon: Bool = false
     @State private var animateTitle: Bool = false
     @State private var animateCards: [Bool]
-    
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.vertical) {
@@ -51,33 +51,38 @@ struct OnboardingView<Icon: View>: View {
             }
             .scrollIndicators(.hidden)
             .scrollBounceBehavior(.basedOnSize)
-            
+
             Button(action: onContinue) {
                 Text("Continue")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
+                    #if os(macOS)
+                        .padding(.vertical, 8)
+                    #else
+                        .padding(.vertical, 4)
+                    #endif
             }
             .tint(tint)
             .buttonStyle(.borderedProminent)
+            .padding(.bottom, 10)
         }
         .frame(maxWidth: 350)
         .interactiveDismissDisabled()
         .allowsTightening(animateCards.last == true)
         .task {
             guard !animateIcon else { return }
-            
+
             await delayedAnimation(0.35) {
                 animateIcon = true
             }
-            
+
             await delayedAnimation(0.2) {
                 animateTitle = true
             }
-            
+
             try? await Task.sleep(for: .seconds(0.2))
-            
+
             for index in animateCards.indices {
                 let delay = Double(index) * 0.1
                 await delayedAnimation(delay) {
@@ -85,14 +90,15 @@ struct OnboardingView<Icon: View>: View {
                 }
             }
         }
+        .setUpOnBoarding()
     }
-    
+
     @ViewBuilder
     func CardsView() -> some View {
         Group {
             ForEach(cards.indices, id: \.self) { index in
                 let card = self.cards[index]
-                
+
                 HStack(alignment: .top, spacing: 12) {
                     Image(systemName: card.symbol)
                         .font(.title)
@@ -112,10 +118,10 @@ struct OnboardingView<Icon: View>: View {
             }
         }
     }
-    
-    func delayedAnimation(_ delay: Double, action: @escaping () -> ()) async {
+
+    func delayedAnimation(_ delay: Double, action: @escaping () -> Void) async {
         try? await Task.sleep(for: .seconds(delay))
-        
+
         withAnimation(.smooth) {
             action()
         }

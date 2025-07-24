@@ -10,7 +10,11 @@ import SwiftUI
 import FreemiumKit
 
 struct PromoAppsView: View {
+    //@AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @State var showOnboarding: Bool = true
+    
     @Environment(\.modelContext) var context
+    
     @State private var showAddPromoAppSheet = false
     @State private var copiedToClipboard = false
     @State private var copyMode: CopyMode = .code
@@ -83,6 +87,39 @@ struct PromoAppsView: View {
             }
             .sheet(isPresented: $showAddPromoAppSheet) {
                 AddPromoAppView()
+            }
+            .sheet(isPresented: $showOnboarding) {
+                OnboardingView(tint: .blue, title: "Welcome to PromoKit") {
+                    Image("OnboardingIcon")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipShape(.rect(cornerRadius: 25))
+                        .frame(height: 150)
+                } cards: {
+                    OnboardingCard(
+                        symbol: "ticket",
+                        title: "All Promo Codes in one place",
+                        subtitle: "Never handle your Promo Codes manually anymore"
+                    )
+                    OnboardingCard(
+                        symbol: "paperclip",
+                        title: "Import from file",
+                        subtitle: "Import your Promo Codes from the .txt file that App Store Connect generates automatically"
+                    )
+                    OnboardingCard(
+                        symbol: "clock.arrow.trianglehead.counterclockwise.rotate.90",
+                        title: "Validity tracking",
+                        subtitle: "See how long your Promo Codes are valid at first glance"
+                    )
+                    OnboardingCard(
+                        symbol: "link",
+                        title: "Deep link",
+                        subtitle: "Generate a deep to redeem a Promo Code in one tap"
+                    )
+                } onContinue: {
+                    showOnboarding = false
+                }
+                
             }
         }
         .overlay {

@@ -60,7 +60,8 @@ struct PromoKitApp: App {
         LinksKit.configure(
             providerToken: "121426791",
             linkSections: [
-                .helpLinks(appID: "6503256642", faqURL: URL(string: "https://xbow.dev/promo-kit"), supportEmail: "promokit@xbow.dev"),
+                // TODO: Add when App ID is available
+                //.helpLinks(appID: "6503256642", faqURL: URL(string: "https://xbow.dev/promo-kit"), supportEmail: "promokit@xbow.dev"),
                 .socialMenus(
                     appLinks: .appSocialLinks(
                         platforms: [.bluesky],

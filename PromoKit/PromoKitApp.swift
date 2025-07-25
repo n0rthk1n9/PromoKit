@@ -29,33 +29,42 @@ struct PromoKitApp: App {
     }
 
     func configureLinksKit() {
-        let ownApps = LinkSection(
-            entries: [
-                .link(
-                    .ownApp(
-                        id: "6503256642",
-                        name: "App Exhibit: Your App Showcase",
-                        systemImage: "square.grid.3x3.fill.square"
+        let ownApps = LinkMenu(
+            title: "More apps from developer",
+            systemImage: "plus.square.on.square",
+            linkSections: [
+                LinkSection(entries: [
+                    .link(
+                        .ownApp(
+                            id: "6503256642",
+                            name: "App Exhibit: Your App Showcase",
+                            systemImage: "square.grid.3x3.fill.square"
+                        )
                     )
+                ]
                 )
             ]
         )
 
-        let cihatsApps = LinkSection(
-            entries: [
-                .link(.friendsApp(id: "6502914189", name: "FreemiumKit: In-App Purchases", systemImage: "cart")),
-                .link(.friendsApp(id: "6480134993", name: "FreelanceKit: Time Tracking", systemImage: "timer")),
-                .link(.friendsApp(id: "6472669260", name: "CrossCraft: Crossword Tests", systemImage: "puzzlepiece")),
-                .link(.friendsApp(id: "6477829138", name: "FocusBeats: Study Music Timer", systemImage: "music.note")),
-                .link(.friendsApp(id: "6587583340", name: "Pleydia Organizer: Media Renamer", systemImage: "popcorn")),
-                .link(
-                    .friendsApp(
-                        id: "6479207869", name: "Guided Guest Mode: Device Demo", systemImage: "questionmark.circle")),
-                .link(
-                    .friendsApp(id: "6478062053", name: "Posters: Discover Movies at Home", systemImage: "movieclapper")
-                ),
-            ]
-        )
+//        let cihatsApps = LinkSection(
+//            entries: [
+//                .link(.friendsApp(id: "6502914189", name: "FreemiumKit: In-App Purchases", systemImage: "cart")),
+//                .link(.friendsApp(id: "6480134993", name: "FreelanceKit: Time Tracking", systemImage: "timer")),
+//                .link(.friendsApp(id: "6472669260", name: "CrossCraft: Crossword Tests", systemImage: "puzzlepiece")),
+//                .link(.friendsApp(id: "6477829138", name: "FocusBeats: Study Music Timer", systemImage: "music.note")),
+//                .link(.friendsApp(id: "6587583340", name: "Pleydia Organizer: Media Renamer", systemImage: "popcorn")),
+//                .link(
+//                    .friendsApp(
+//                        id: "6479207869",
+//                        name: "Guided Guest Mode: Device Demo",
+//                        systemImage: "questionmark.circle"
+//                    )
+//                ),
+//                .link(
+//                    .friendsApp(id: "6478062053", name: "Posters: Discover Movies at Home", systemImage: "movieclapper")
+//                ),
+//            ]
+//        )
 
         LinksKit.configure(
             providerToken: "121426791",
@@ -73,12 +82,25 @@ struct PromoKitApp: App {
                         handleOverrides: [.mastodon(instance: "mastodon.social"): "n0rthk1n9"]
                     ),
                 ),
-                LinkSection(title: "Icon Design", entries: [
-                    .link(Link(title: "Llorenç Poy Ventura", systemImage: "paintpalette", url: URL(string: "https://www.behance.net/llpv")!))
-                ]),
-                .appMenus(
-                    ownAppLinks: [ownApps],
-                    friendsAppLinks: [cihatsApps]
+                LinkSection(
+                    title: "Icon Design",
+                    entries: [
+                        .link(
+                            Link(
+                                title: "Llorenç Poy Ventura",
+                                systemImage: "paintpalette",
+                                url: URL(string: "https://www.behance.net/llpv")!
+                            )
+                        )
+                    ]
+                ),
+                LinkSection(
+                    title: "App Links",
+                    entries: [
+                        .menu(
+                            ownApps
+                        )
+                    ]
                 ),
                 .legalLinks(privacyURL: URL(string: "https://xbow.dev/promo-kit/privacy")!),
             ]

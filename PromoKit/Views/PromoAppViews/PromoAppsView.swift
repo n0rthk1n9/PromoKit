@@ -5,16 +5,16 @@
 //  Created by Jan Armbrust on 06.12.2024.
 //
 
+import FreemiumKit
 import SwiftData
 import SwiftUI
-import FreemiumKit
 
 struct PromoAppsView: View {
-    //@AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @State var showOnboarding: Bool = true
-    
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    //    @State var showOnboarding: Bool = true
+
     @Environment(\.modelContext) var context
-    
+
     @State private var showAddPromoAppSheet = false
     @State private var copiedToClipboard = false
     @State private var copyMode: CopyMode = .code
@@ -66,11 +66,11 @@ struct PromoAppsView: View {
                         )
                     } actions: {
                         #if DEBUG
-                        Button {
-                            generateSampleData()
-                        } label: {
-                            Text("Add a demo app to test the features")
-                        }
+                            Button {
+                                generateSampleData()
+                            } label: {
+                                Text("Add a demo app to test the features")
+                            }
                         #endif
                     }
                 }
@@ -104,7 +104,8 @@ struct PromoAppsView: View {
                     OnboardingCard(
                         symbol: "paperclip",
                         title: "Import from file",
-                        subtitle: "Import your Promo Codes from the .txt file that App Store Connect generates automatically"
+                        subtitle:
+                            "Import your Promo Codes from the .txt file that App Store Connect generates automatically"
                     )
                     OnboardingCard(
                         symbol: "clock.arrow.trianglehead.counterclockwise.rotate.90",
@@ -119,7 +120,7 @@ struct PromoAppsView: View {
                 } onContinue: {
                     showOnboarding = false
                 }
-                
+
             }
         }
         .overlay {

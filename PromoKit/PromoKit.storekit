@@ -20,109 +20,9 @@
       "internalID" : "6739523542",
       "localizations" : [
         {
-          "description" : "Truy cập tính năng Pro.",
-          "displayName" : "Pro Trọn đời",
-          "locale" : "vi"
-        },
-        {
-          "description" : "Pristup Pro značajkama.",
-          "displayName" : "Pro Doživotno",
-          "locale" : "hr"
-        },
-        {
-          "description" : "Access to Pro features.",
-          "displayName" : "Pro Lifetime",
-          "locale" : "en_GB"
-        },
-        {
-          "description" : "Akses ke fitur Pro.",
-          "displayName" : "Pro Seumur hidup",
-          "locale" : "id"
-        },
-        {
-          "description" : "Toegang tot Pro functies.",
-          "displayName" : "Pro Levenslang",
-          "locale" : "nl"
-        },
-        {
-          "description" : "Dostęp do Pro funkcji.",
-          "displayName" : "Pro Dożywotnio",
-          "locale" : "pl"
-        },
-        {
-          "description" : "Access to Pro features.",
-          "displayName" : "Pro Lifetime",
-          "locale" : "en_AU"
-        },
-        {
-          "description" : "Доступ до Pro функцій.",
-          "displayName" : "Pro Довічно",
-          "locale" : "uk"
-        },
-        {
-          "description" : "Acces la funcțiile Pro.",
-          "displayName" : "Pro Pe viață",
-          "locale" : "ro"
-        },
-        {
-          "description" : "Tillgång till Pro funktioner.",
-          "displayName" : "Pro Livstid",
-          "locale" : "sv"
-        },
-        {
-          "description" : "Prístup k Pro funkciám.",
-          "displayName" : "Pro Na celý život",
-          "locale" : "sk"
-        },
-        {
-          "description" : "Acceso a las funciones Pro.",
-          "displayName" : "Pro De por vida",
-          "locale" : "es_MX"
-        },
-        {
-          "description" : "Akses semua Pro ciri.",
-          "displayName" : "Pro Seumur hidup",
-          "locale" : "ms"
-        },
-        {
-          "description" : "Pro सुविधाएँ।",
-          "displayName" : "Pro आजीवन",
-          "locale" : "hi"
-        },
-        {
-          "description" : "Adgang til Pro funktioner.",
-          "displayName" : "Pro Livstid",
-          "locale" : "da"
-        },
-        {
-          "description" : "Accesso a Pro funzionalità.",
-          "displayName" : "Pro A vita",
-          "locale" : "it"
-        },
-        {
-          "description" : "เข้าถึงคุณสมบัติ Pro.",
-          "displayName" : "Pro ตลอดชีพ",
-          "locale" : "th"
-        },
-        {
-          "description" : "Acceso a las funciones Pro.",
-          "displayName" : "Pro De por vida",
-          "locale" : "es_ES"
-        },
-        {
-          "description" : "Access to Pro features.",
-          "displayName" : "Pro Lifetime",
-          "locale" : "en_CA"
-        },
-        {
-          "description" : "Acesso às funcionalidades Pro.",
-          "displayName" : "Pro Vitalício",
-          "locale" : "pt_PT"
-        },
-        {
-          "description" : "Accés a Pro.",
-          "displayName" : "Pro Per a vida",
-          "locale" : "ca"
+          "description" : "Pääsy Pro ominaisuuksiin.",
+          "displayName" : "Pro Elinikä",
+          "locale" : "fi"
         },
         {
           "description" : "Pro özellikleri.",
@@ -130,59 +30,14 @@
           "locale" : "tr"
         },
         {
-          "description" : "Pro機能へのアクセス。",
-          "displayName" : "Pro 生涯",
-          "locale" : "ja"
-        },
-        {
-          "description" : "Доступ к функциям Pro.",
-          "displayName" : "Pro Пожизненно",
-          "locale" : "ru"
-        },
-        {
-          "description" : "Přístup ke Pro funkcím.",
-          "displayName" : "Pro Doživotní",
-          "locale" : "cs"
-        },
-        {
-          "description" : "Pro 기능 접근.",
-          "displayName" : "Pro 평생",
-          "locale" : "ko"
-        },
-        {
-          "description" : "Accès aux fonctionnalités Pro.",
-          "displayName" : "Pro À vie",
-          "locale" : "fr"
-        },
-        {
           "description" : "Hozzáférés Pro funkciókhoz.",
           "displayName" : "Pro Élettartam",
           "locale" : "hu"
         },
         {
-          "description" : "Zugriff auf Pro Funktionen.",
-          "displayName" : "Pro Lebenszeit",
-          "locale" : "de"
-        },
-        {
-          "description" : "Pääsy Pro ominaisuuksiin.",
-          "displayName" : "Pro Elinikä",
-          "locale" : "fi"
-        },
-        {
-          "description" : "Πρόσβαση στις Pro λειτουργίες.",
-          "displayName" : "Pro Διάρκεια ζωής",
-          "locale" : "el"
-        },
-        {
-          "description" : "访问Pro功能。",
-          "displayName" : "Pro 终身",
-          "locale" : "zh_CN"
-        },
-        {
-          "description" : "Access to Pro features.",
-          "displayName" : "Pro Lifetime",
-          "locale" : "en_US"
+          "description" : "Acces la funcțiile Pro.",
+          "displayName" : "Pro Pe viață",
+          "locale" : "ro"
         },
         {
           "description" : "كل ميزات Pro.",
@@ -190,14 +45,164 @@
           "locale" : "ar"
         },
         {
-          "description" : "Acesso aos recursos Pro.",
+          "description" : "Tillgång till Pro funktioner.",
+          "displayName" : "Pro Livstid",
+          "locale" : "sv"
+        },
+        {
+          "description" : "Доступ к функциям Pro.",
+          "displayName" : "Pro Пожизненно",
+          "locale" : "ru"
+        },
+        {
+          "description" : "Pristup Pro značajkama.",
+          "displayName" : "Pro Doživotno",
+          "locale" : "hr"
+        },
+        {
+          "description" : "Accès aux fonctionnalités Pro.",
+          "displayName" : "Pro À vie",
+          "locale" : "fr"
+        },
+        {
+          "description" : "Accés a Pro.",
+          "displayName" : "Pro Per a vida",
+          "locale" : "ca"
+        },
+        {
+          "description" : "Zugriff auf Pro Funktionen.",
+          "displayName" : "Pro Lebenszeit",
+          "locale" : "de"
+        },
+        {
+          "description" : "Akses ke fitur Pro.",
+          "displayName" : "Pro Seumur hidup",
+          "locale" : "id"
+        },
+        {
+          "description" : "Truy cập tính năng Pro.",
+          "displayName" : "Pro Trọn đời",
+          "locale" : "vi"
+        },
+        {
+          "description" : "เข้าถึงคุณสมบัติ Pro.",
+          "displayName" : "Pro ตลอดชีพ",
+          "locale" : "th"
+        },
+        {
+          "description" : "Pro सुविधाएँ।",
+          "displayName" : "Pro आजीवन",
+          "locale" : "hi"
+        },
+        {
+          "description" : "Access to Pro features.",
+          "displayName" : "Pro Lifetime",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "訪問Pro功能。",
+          "displayName" : "Pro 終身",
+          "locale" : "zh_Hant"
+        },
+        {
+          "description" : "Доступ до Pro функцій.",
+          "displayName" : "Pro Довічно",
+          "locale" : "uk"
+        },
+        {
+          "description" : "Akses semua Pro ciri.",
+          "displayName" : "Pro Seumur hidup",
+          "locale" : "ms"
+        },
+        {
+          "description" : "Dostęp do Pro funkcji.",
+          "displayName" : "Pro Dożywotnio",
+          "locale" : "pl"
+        },
+        {
+          "description" : "Acceso a las funciones Pro.",
+          "displayName" : "Pro De por vida",
+          "locale" : "es_MX"
+        },
+        {
+          "description" : "访问Pro功能。",
+          "displayName" : "Pro 终身",
+          "locale" : "zh_Hans"
+        },
+        {
+          "description" : "Access to Pro features.",
+          "displayName" : "Pro Lifetime",
+          "locale" : "en_AU"
+        },
+        {
+          "description" : "Πρόσβαση στις Pro λειτουργίες.",
+          "displayName" : "Pro Διάρκεια ζωής",
+          "locale" : "el"
+        },
+        {
+          "description" : "Adgang til Pro funktioner.",
+          "displayName" : "Pro Livstid",
+          "locale" : "da"
+        },
+        {
+          "description" : "Acesso às funcionalidades Pro.",
           "displayName" : "Pro Vitalício",
-          "locale" : "pt_BR"
+          "locale" : "pt_PT"
+        },
+        {
+          "description" : "Pro 기능 접근.",
+          "displayName" : "Pro 평생",
+          "locale" : "ko"
+        },
+        {
+          "description" : "Přístup ke Pro funkcím.",
+          "displayName" : "Pro Doživotní",
+          "locale" : "cs"
+        },
+        {
+          "description" : "Toegang tot Pro functies.",
+          "displayName" : "Pro Levenslang",
+          "locale" : "nl"
+        },
+        {
+          "description" : "Access to Pro features.",
+          "displayName" : "Pro Lifetime",
+          "locale" : "en_CA"
+        },
+        {
+          "description" : "Accesso a Pro funzionalità.",
+          "displayName" : "Pro A vita",
+          "locale" : "it"
+        },
+        {
+          "description" : "Access to Pro features.",
+          "displayName" : "Pro Lifetime",
+          "locale" : "en_GB"
+        },
+        {
+          "description" : "Acceso a las funciones Pro.",
+          "displayName" : "Pro De por vida",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "Pro機能へのアクセス。",
+          "displayName" : "Pro 生涯",
+          "locale" : "ja"
         },
         {
           "description" : "גישה לכל Pro תכונות.",
           "displayName" : "Pro לכל החיים",
           "locale" : "he"
+        },
+        {
+          "description" : "Prístup k Pro funkciám.",
+          "displayName" : "Pro Na celý život",
+          "locale" : "sk"
+        },
+        {
+          "description" : "Acesso aos recursos Pro.",
+          "displayName" : "Pro Vitalício",
+          "locale" : "pt_BR"
         }
       ],
       "productID" : "PromoKit.Pro.Lifetime",
@@ -209,7 +214,7 @@
     "_applicationInternalID" : "6739035369",
     "_developerTeamID" : "G7HRH2B3C7",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 756222572.75201905,
+    "_lastSynchronizedDate" : 775513862.37442195,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
